@@ -125,12 +125,12 @@ client:on('messageCreate', function(message)
                     message:reply("fuck outta here")
                 end
             end
-        elseif isNumeric(args) and #args == 18 then --if ids
-            if not author:hasPermission("kickMembers") then
+        elseif isNumeric(args) and #args == 18 then --if ids, yet to figure out a better way to check for ids but its not top priotity when im the only one using it, also haven't tested id method yet
+            if not author:hasPermission("banMembers") then
                 message:reply("nice try retard")
             else
                 message:addReaction("✨")
-                message.guild:kickUser(args)
+                message.guild:banUser(args)
                 message:reply("fuck outta here")
             end
         end
@@ -168,8 +168,8 @@ client:on('messageCreate', function(message)
         end
     end
 
-    if cmd == prefix.."time" then
-        local author = message.guild:getMember(336678828233588736)
+    if cmd == prefix.."time" then --command to display my own time in my own timezone
+        local author = message.guild:getMember(client.owner.id)
         local time = os.date("%I:%M:%S %p", os.time())
         local date = os.date("%d %B, %Y", os.time())
         local dayoftheweek = os.date("%A", os.time())
