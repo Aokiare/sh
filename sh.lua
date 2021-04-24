@@ -16,6 +16,9 @@ end
 local function isNumeric(str)
     return tonumber(str) ~= nil
 end
+local function isHex(str)
+    return startsWith(str, "#") and #str == 7
+end
 local function isRGB(str)
     return isNumeric(str) and str <= 255
 end
@@ -74,7 +77,7 @@ client:on('messageCreate', function(message)
                 else --input is not a hex
                     message:reply("that is not a valid color")
                 end
-            elseif startsWith(args, "<@!") then --check if mentions someone, get highest role color
+            elseif message.mentionedUsers ~= nil then --check if mentions someone, get highest role color
                 local member = message.mentionedUsers.first
                 local memberId = message.guild:getMember(member.id)
                 local decimal = memberId:getColor().value
@@ -83,9 +86,7 @@ client:on('messageCreate', function(message)
                 local rgb = r..", "..g..", "..b
                 message:reply({embed = {fields = { {name = "Hex", value = hex}, {name = "RGB", value = rgb}, {name = "Decimal", value = decimal}},color = discordia.Color.fromHex(hex).value;}})
             elseif string.find(args, ",") ~= nil then --basic check if input is rgb
-                ---@diagnostic disable-next-line: undefined-field
                 local rgbTable = string.split(args, ",")
-                ---@diagnostic disable-next-line: undefined-field
                 local r,g,b = tonumber(string.trim(rgbTable[1])),tonumber(string.trim(rgbTable[2])),tonumber(string.trim(rgbTable[3]))
                 if isRGB(r) and isRGB(g) and isRGB(b) then --validate input
                     local rgb = r..", "..g..", "..b
@@ -128,7 +129,7 @@ client:on('messageCreate', function(message)
                     message:reply("fuck outta here")
                 end
             end
-        elseif isNumeric(args) and #args == 18 then --if ids, yet to figure out a better way to check for ids but its not top priotity when im the only one using it, also haven't tested id method yet
+        elseif message.guild:getMember(args) ~= nil then
             if not author:hasPermission("banMembers") then
                 message:reply("nice try retard")
             else
@@ -160,7 +161,7 @@ client:on('messageCreate', function(message)
                     message:reply("outta here")
                 end
             end
-        elseif isNumeric(args) and #args == 18 then --if ids
+        elseif message.guild:getMember(args) ~= nil then --if ids
             if not author:hasPermission("kickMembers") then
                 message:reply("nice try retard")
             else
@@ -186,12 +187,12 @@ client:on('messageCreate', function(message)
             message:addReaction("✨")
             channel:bulkDelete(message.channel:getMessagesBefore(message.id, args))
             if args == "1" then
-                local reply = message:reply({ embed = {title =args.." message was deleted by "..author.tag, color = discordia.Color.fromHex("#a57562").value}})
+                local reply = message:reply({ embed = {description =args.." message was deleted by "..author.tag, color = discordia.Color.fromHex("#a57562").value}})
                 discordia.Clock():waitFor("",5000)
                 reply:delete()
                 message:delete()
             else
-                local reply = message:reply({ embed = {title =args.." messages were deleted by "..author.tag, color = discordia.Color.fromHex("#a57562").value}})
+                local reply = message:reply({ embed = {description =args.." messages were deleted by "..author.tag, color = discordia.Color.fromHex("#a57562").value}})
                 discordia.Clock():waitFor("",5000)
                 reply:delete()
                 message:delete()
@@ -200,6 +201,39 @@ client:on('messageCreate', function(message)
             message:reply("?")
         end
     end
+
+    if cmd == prefix.."crole" then
+        local author = message.guild:getMember(message.author.id)
+        local server = message.guild
+        if string.find(args, ",") then
+            local argsTable = string.split(args,",") -- name, hex color, hoisted, mentioned
+            if author:hasPermission("manageRoles") and string.trim(argsTable[1]) then
+                message:addReaction("✨")
+                local role = server:createRole(string.trim(argsTable[1]))
+                if string.trim(argsTable[2]) and isHex(string.trim(argsTable[2])) then
+                    role:setColor(discordia.Color.fromHex(string.trim(argsTable[2])))
+                    if argsTable[3] then
+                        if string.trim(argsTable[3]) == "true" or string.trim(argsTable[3]) == "1" then
+                            role:hoist()
+                        end
+                    end
+                    if argsTable[4] then
+                        if string.trim(argsTable[4]) == "true" or string.trim(argsTable[4]) == "1" then
+                            role:enableMentioning()
+                        end
+                    end
+                end
+                local reply = message:reply({ embed = {description ="<:shSuccess:835619376052174848> created role "..role.name, color = discordia.Color.fromHex("#43B581").value}})
+            end
+        else
+            if author:hasPermission("manageRoles") then
+                message:addReaction("✨")
+                local role = server:createRole(args)
+                local reply = message:reply({ embed = {description ="<:shSuccess:835619376052174848> created role "..role.name, color = discordia.Color.fromHex("#43B581").value}})
+            end
+        end
+    end
+
 end)
 
 client:run('Bot '..botToken)
