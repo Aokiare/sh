@@ -1,11 +1,14 @@
 local discordia = require('discordia')
 local client = discordia.Client()
 local FileReader = require ('fs')
+local http = require('coro-http')
 discordia.extensions()
 
-
 local prefix = ">"
-local botToken = assert(FileReader.readFileSync("./token"))
+-- local botToken = assert(FileReader.readFileSync("./token")) -- token plaintext file
+local botToken = os.getenv("botToken") -- replit env
+
+http.createServer("0.0.0.0", 8000) -- replit keep alive
 
 local function startsWith(str, start)
     return str:sub(1, #start) == start
