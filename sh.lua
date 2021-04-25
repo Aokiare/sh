@@ -42,17 +42,18 @@ client:on('messageCreate', function(message)
 
     if cmd == prefix.."avatar" then
         local author = message.author
-        local member = message.mentionedUsers.first
         if args == nil then
             local authorId = message.guild:getMember(message.author.id)
             local avatar = author:getAvatarURL(1024)
             message:reply({embed = {author = {name = author.tag, icon_url = avatar}, image = {url = avatar}, color = authorId:getColor().value;}})
-            -- message:reply({embed = {author = {name = author.tag, icon_url = avatar}, image = {url = avatar}, color = discordia.Color.fromHex("#a57562").value;}})
-        elseif member then
-            local memberId = message.guild:getMember(member.id)
+        elseif message.mentionedUsers.first ~= nil then
+            local member = message.guild:getMember(message.mentionedUsers.first.id)
             local avatar = member:getAvatarURL(1024)
-            -- message:reply("**"..member.tag.."**'s avatar\n"..avatar)
-            message:reply({embed = {author = {name = member.tag, icon_url = avatar}, image = {url = avatar}, color = memberId:getColor().value;}})
+            message:reply({embed = {author = {name = member.tag, icon_url = avatar}, image = {url = avatar}, color = member:getColor().value;}})
+        elseif message.guild:getMember(args) ~= nil then
+            local member = message.guild:getMember(args)
+            local avatar = member:getAvatarURL(1024)
+            message:reply({embed = {author = {name = member.tag, icon_url = avatar}, image = {url = avatar}, color = member:getColor().value;}})
         else
             message:reply("?")
         end
