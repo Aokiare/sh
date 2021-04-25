@@ -181,11 +181,11 @@ client:on('messageCreate', function(message)
         message:reply({embed = {author = {name = author.tag, icon_url = author:getAvatarURL()}, fields = {{name = "Time", value = time}, {name = "Date", value = date}, {name = "Day", value = dayoftheweek:upper()}}, thumbnail = {url = "https://i.imgur.com/9Tq1txG.png"},color = discordia.Color.fromHex("#a57562").value;}})
     end
 
-    if cmd == prefix.."clear" then
+    if cmd == prefix.."clear" or cmd == prefix.."cl" or cmd == prefix.."prune" or cmd == prefix.."purge" then
         local author = message.guild:getMember(message.author.id)
         local channel = message.guild:getChannel(message.channel.id)
         if author:hasPermission("manageMessages") and isNumeric(args) then
-            message:addReaction("✨")
+            message:delete()
             channel:bulkDelete(message.channel:getMessagesBefore(message.id, args))
             if args == "1" then
                 local reply = message:reply({ embed = {description =args.." message was deleted by "..author.tag, color = discordia.Color.fromHex("#a57562").value}})
@@ -194,9 +194,8 @@ client:on('messageCreate', function(message)
                 message:delete()
             else
                 local reply = message:reply({ embed = {description =args.." messages were deleted by "..author.tag, color = discordia.Color.fromHex("#a57562").value}})
-                discordia.Clock():waitFor("",5000)
+                discordia.Clock():waitFor("",3000)
                 reply:delete()
-                message:delete()
             end
         else
             message:reply("?")
