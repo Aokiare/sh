@@ -42,18 +42,22 @@ client:on('messageCreate', function(message)
 
     if cmd == prefix.."avatar" then
         local author = message.author
-        if args == nil then
+        if args == nil then -- if no input return author's avatar
             local authorId = message.guild:getMember(message.author.id)
             local avatar = author:getAvatarURL(1024)
             message:reply({embed = {author = {name = author.tag, icon_url = avatar}, image = {url = avatar}, color = authorId:getColor().value;}})
-        elseif message.mentionedUsers.first ~= nil then
+        elseif message.mentionedUsers.first ~= nil then -- if mentioned return mentioned avatar
             local member = message.guild:getMember(message.mentionedUsers.first.id)
             local avatar = member:getAvatarURL(1024)
             message:reply({embed = {author = {name = member.tag, icon_url = avatar}, image = {url = avatar}, color = member:getColor().value;}})
-        elseif message.guild:getMember(args) ~= nil then
+        elseif message.guild:getMember(args) ~= nil then -- if memeber user id return user avatar and color the embed with highest role color
             local member = message.guild:getMember(args)
             local avatar = member:getAvatarURL(1024)
             message:reply({embed = {author = {name = member.tag, icon_url = avatar}, image = {url = avatar}, color = member:getColor().value;}})
+        elseif message.guild:getMember(args) == nil and client:getUser(args) ~= nil then
+            local member = client:getUser(args) -- if non member user id return user avatar
+            local avatar = member:getAvatarURL(1024)
+            message:reply({embed = {author = {name = member.tag, icon_url = avatar}, image = {url = avatar}, color = discordia.Color.fromHex("#a57562").value;}})
         else
             message:reply("?")
         end
