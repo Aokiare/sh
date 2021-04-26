@@ -78,14 +78,6 @@ client:on('messageCreate', function(message)
                 else --input is not a hex
                     message:reply("that is not a valid color")
                 end
-            elseif message.mentionedUsers ~= nil then --check if mentions someone, get highest role color
-                local member = message.mentionedUsers.first
-                local memberId = message.guild:getMember(member.id)
-                local decimal = memberId:getColor().value
-                local hex = discordia.Color(decimal):toHex()
-                local r,g,b = discordia.Color(decimal):toRGB()
-                local rgb = r..", "..g..", "..b
-                message:reply({embed = {fields = { {name = "Hex", value = hex}, {name = "RGB", value = rgb}, {name = "Decimal", value = decimal}},color = discordia.Color.fromHex(hex).value;}})
             elseif string.find(args, ",") ~= nil then --basic check if input is rgb
                 local rgbTable = string.split(args, ",")
                 local r,g,b = tonumber(string.trim(rgbTable[1])),tonumber(string.trim(rgbTable[2])),tonumber(string.trim(rgbTable[3]))
@@ -99,6 +91,14 @@ client:on('messageCreate', function(message)
                 end
             elseif isDecimal(args) then --check if input is decimal
                 local decimal = tonumber(args)
+                local hex = discordia.Color(decimal):toHex()
+                local r,g,b = discordia.Color(decimal):toRGB()
+                local rgb = r..", "..g..", "..b
+                message:reply({embed = {fields = { {name = "Hex", value = hex}, {name = "RGB", value = rgb}, {name = "Decimal", value = decimal}},color = discordia.Color.fromHex(hex).value;}})
+            elseif message.mentionedUsers ~= nil then --check if mentions someone, get highest role color
+                local member = message.mentionedUsers.first
+                local memberId = message.guild:getMember(member.id)
+                local decimal = memberId:getColor().value
                 local hex = discordia.Color(decimal):toHex()
                 local r,g,b = discordia.Color(decimal):toRGB()
                 local rgb = r..", "..g..", "..b
