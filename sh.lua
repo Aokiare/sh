@@ -350,6 +350,10 @@ client:on('messageCreate', function(message)
             end
         end
     end
+    
+    if cmd == prefix.."help" then
+        message:reply("لأ")
+    end
 end)
 
 client:run('Bot '..botToken)
