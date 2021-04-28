@@ -31,6 +31,51 @@ client:on('ready', function()
     print(os.date("!%F %T", os.time() + 2 * 60 * 60).." | \027[94m[BOT]\027[0m     | "..client.user.username.." is online!")
 end)
 
+client:on('voiceChannelJoin', function(member, vc)
+    local guild = member.parent
+    local channel
+
+    if guild.id == "570279341011894273" then -- my server
+        channel = guild:getChannel("832411421915742209") --sh
+    elseif guild.id == "745426262662709359" then -- fla7een neek
+        channel = guild:getChannel("798591060375896064") --voiceless fla7
+    end
+
+    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** joined "..vc.name, color = discordia.Color.fromHex("#a57562").value}})
+    discordia.Clock():waitFor("",5000)
+    msg:delete()
+end)
+
+client:on('voiceChannelLeave', function(member, vc)
+    local guild = member.parent
+    local channel
+
+    if guild.id == "570279341011894273" then -- my server
+        channel = guild:getChannel("832411421915742209") --sh
+    elseif guild.id == "745426262662709359" then -- fla7een neek
+        channel = guild:getChannel("798591060375896064") --voiceless fla7
+    end
+
+    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** left "..vc.name, color = discordia.Color.fromHex("#a57562").value}})
+    discordia.Clock():waitFor("",5000)
+    msg:delete()
+end)
+
+client:on('voiceUpdate', function(member)
+    local guild = member.parent
+    local channel
+
+    if guild.id == "570279341011894273" then -- my server
+        channel = guild:getChannel("832411421915742209") --sh
+    elseif guild.id == "745426262662709359" then -- fla7een neek
+        channel = guild:getChannel("798591060375896064") --voiceless fla7
+    end
+
+    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."**'s voice status has been updated", color = discordia.Color.fromHex("#a57562").value}})
+    discordia.Clock():waitFor("",5000)
+    msg:delete()
+end)
+
 client:on('messageCreate', function(message)
     local err = { embed = {description ="<:shError:835619357249241159> nah something aint right", color = discordia.Color.fromHex("#EA4445").value}}
 	local cmd, args = message.content:match("^(%S+)%s+(.+)$")
@@ -197,11 +242,11 @@ client:on('messageCreate', function(message)
             message:delete()
             channel:bulkDelete(message.channel:getMessagesBefore(message.id, args))
             if args == "1" then
-                local reply = message:reply({ embed = {description =args.." message was deleted by "..author.tag, color = discordia.Color.fromHex("#a57562").value}})
+                local reply = message:reply({ embed = {description =args.." message was deleted by **"..author.tag.."**", color = discordia.Color.fromHex("#a57562").value}})
                 discordia.Clock():waitFor("",3000)
                 reply:delete()
             else
-                local reply = message:reply({ embed = {description =args.." messages were deleted by "..author.tag, color = discordia.Color.fromHex("#a57562").value}})
+                local reply = message:reply({ embed = {description =args.." messages were deleted by **"..author.tag.."**", color = discordia.Color.fromHex("#a57562").value}})
                 discordia.Clock():waitFor("",3000)
                 reply:delete()
             end
