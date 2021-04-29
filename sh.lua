@@ -354,6 +354,14 @@ client:on('messageCreate', function(message)
     if cmd == prefix.."help" then
         message:reply("لأ")
     end
+
+    if cmd == prefix.."say" then
+        if message.author ~= client.owner then return end
+        local msg = args
+        local channel = message.channel
+        message:delete()
+        channel:send(msg)
+    end
 end)
 
 client:run('Bot '..botToken)
