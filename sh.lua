@@ -411,6 +411,7 @@ client:on('messageCreate', function(message)
                 stream = "everything"
             end
             if vc.connection then
+                vc.connection:stopStream()
                 message:addReaction("✨")
                 message:reply({embed = {title =  "lain chan", color = discordia.Color.fromHex("#a57562").value, description = "playing "..stream..[[ playlist
                 requested by **]]..author.tag.."**", thumbnail = {url = "https://i.imgur.com/GRN5n7V.gif"}}})
