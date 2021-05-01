@@ -461,11 +461,9 @@ client:on('messageCreate', function(message)
     end
 
     if cmd == prefix.."leave" then
-        local author = message.guild:getMember(message.author.id)
-        if author.id == client.owner.id then
-            message:reply("aight im headin out")
-            message.guild:leave()
-        end
+        if message.author ~= client.owner then return end
+        message:reply("aight im headin out")
+        message.guild:leave()
     end
 
     if cmd == prefix.."say" then
