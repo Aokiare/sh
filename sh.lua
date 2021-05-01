@@ -391,6 +391,8 @@ client:on('messageCreate', function(message)
             discordia.Clock():waitFor("",5000)
             reply:delete()
         return
+        elseif client.user.voiceChannel then
+            vc = client.user.voiceChannel
         else
             vc = author.voiceChannel
             vc:join()
