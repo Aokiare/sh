@@ -92,24 +92,24 @@ client:on('messageCreate', function(message)
     if cmd == prefix.."avatar" then
         local author = message.guild:getMember(message.author.id)
         local avatar, member, color
-        if args == nil then -- if no input return author's avatar
+        if not args then -- if no input return author's avatar
             member = author
             avatar = member:getAvatarURL(1024)
             color = member:getColor().value
-        elseif message.mentionedUsers.first ~= nil then -- if mentioned user return mentioned user avatar
+        elseif message.mentionedUsers.first then -- if mentioned user return mentioned user avatar
             member = message.guild:getMember(message.mentionedUsers.first.id)
             avatar = member:getAvatarURL(1024)
             color = member:getColor().value
-        elseif message.guild:getMember(args) ~= nil then -- if used member user id return member avatar with highest role color embed
+        elseif message.guild:getMember(args) then -- if used member user id return member avatar with highest role color embed
             member = message.guild:getMember(args)
             avatar = member:getAvatarURL(1024)
             color = member:getColor().value
-        elseif message.guild:getMember(args) == nil and client:getUser(args) ~= nil then -- if used non member id return user avatar
+        elseif not message.guild:getMember(args) and client:getUser(args) then -- if used non member id return user avatar
             member = client:getUser(args)
             avatar = member:getAvatarURL(1024)
             color = discordia.Color.fromHex("#a57562").value
         end
-        if avatar == nil or member == nil or color == nil then
+        if not avatar or not member or not color then
             message:reply(err)
         else
             message:reply({embed = {author = {name = member.tag, icon_url = avatar}, image = {url = avatar}, color = color;}})
@@ -129,7 +129,7 @@ client:on('messageCreate', function(message)
             decimal = discordia.Color.fromHex(hex).value
             r,g,b = discordia.Color(decimal):toRGB()
             rgb = r..", "..g..", "..b
-        elseif string.find(args, ",") ~= nil then -- basic check if input is rgb
+        elseif string.find(args, ",") then -- basic check if input is rgb
             local rgbTable = string.split(args, ",")
             r,g,b = tonumber(string.trim(rgbTable[1])),tonumber(string.trim(rgbTable[2])),tonumber(string.trim(rgbTable[3]))
             if isRGB(r) and isRGB(g) and isRGB(b) then -- validate input
@@ -142,14 +142,14 @@ client:on('messageCreate', function(message)
             hex = discordia.Color(decimal):toHex()
             r,g,b = discordia.Color(decimal):toRGB()
             rgb = r..", "..g..", "..b
-        elseif message.mentionedUsers.first ~= nil then --check if mentions someone, get highest role color
+        elseif message.mentionedUsers.first then --check if mentions someone, get highest role color
             local member = message.guild:getMember(message.mentionedUsers.first.id)
             decimal = member:getColor().value
             hex = discordia.Color(decimal):toHex()
             r,g,b = discordia.Color(decimal):toRGB()
             rgb = r..", "..g..", "..b
         end
-        if hex == nil or rgb == nil or decimal == nil then
+        if not hex or not rgb or not decimal then
             message:reply(err)
         else
             message:reply({embed = {fields = { {name = "Hex", value = hex}, {name = "RGB", value = rgb}, {name = "Decimal", value = decimal}},color = discordia.Color.fromHex(hex).value;}})
@@ -159,9 +159,9 @@ client:on('messageCreate', function(message)
     if cmd == prefix.."ban" then
         local author = message.guild:getMember(message.author.id)
 
-        if message.mentionedUsers.first ~= nil then --if mentioned
+        if message.mentionedUsers.first then --if mentioned
             local member = message.mentionedUsers.first
-            if not author:hasPermission("banMembers") then
+            if not author:hasPermission("banMembers") or not author.id == client.owner.id then
                 local reply = message:reply("nice try retard")
                 discordia.Clock():waitFor("",3000)
                 message:delete()
@@ -176,8 +176,8 @@ client:on('messageCreate', function(message)
                 end
                 message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully banned mf(s)", color = discordia.Color.fromHex("#43B581").value}})
             end
-        elseif message.guild:getMember(args) ~= nil then
-            if not author:hasPermission("banMembers") then
+        elseif client:getUser(args) then
+            if not author:hasPermission("banMembers") or not author.id == client.owner.id then
                 local reply = message:reply("nice try retard")
                 discordia.Clock():waitFor("",3000)
                 message:delete()
@@ -185,7 +185,7 @@ client:on('messageCreate', function(message)
             else
                 message:addReaction("✨")
                 message.guild:banUser(args)
-                message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully banned a mf", color = discordia.Color.fromHex("#43B581").value}})
+                message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully banned **"..args.tag.."**", color = discordia.Color.fromHex("#43B581").value}})
             end
         else
             message:reply(err)
@@ -195,9 +195,9 @@ client:on('messageCreate', function(message)
     if cmd == prefix.."kick" then
         local author = message.guild:getMember(message.author.id)
 
-        if message.mentionedUsers.first ~= nil then --if mentioned
+        if message.mentionedUsers.first then --if mentioned
             local member = message.mentionedUsers.first
-            if not author:hasPermission("kickMembers") then
+            if not author:hasPermission("kickMembers") or not author.id == client.owner.id then
                 local reply = message:reply("nice try retard")
                 discordia.Clock():waitFor("",3000)
                 message:delete()
@@ -212,16 +212,16 @@ client:on('messageCreate', function(message)
                 end
                 message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully kicked mf(s)", color = discordia.Color.fromHex("#43B581").value}})
             end
-        elseif message.guild:getMember(args) ~= nil then
-            if not author:hasPermission("kickMembers") then
+        elseif client:getUser(args) then
+            if not author:hasPermission("kickMembers") or not author.id == client.owner.id then
                 local reply = message:reply("nice try retard")
                 discordia.Clock():waitFor("",3000)
                 message:delete()
                 reply:delete()
             else
                 message:addReaction("✨")
-                message.guild:banUser(args)
-                message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully kicked a mf", color = discordia.Color.fromHex("#43B581").value}})
+                message.guild:kickUser(args)
+                message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully kicked **"..args.tag.."**", color = discordia.Color.fromHex("#43B581").value}})
             end
         else
             message:reply(err)
@@ -259,7 +259,7 @@ client:on('messageCreate', function(message)
     if cmd == prefix.."crole" then
         local author = message.guild:getMember(message.author.id)
         local server = message.guild
-        if not author:hasPermission("manageRoles") then
+        if not author:hasPermission("manageRoles") or not author.id == client.owner.id  then
             message:reply("nice try retard")
         else
             if string.find(args, ",") then
@@ -278,7 +278,7 @@ client:on('messageCreate', function(message)
                     end
                     message:reply({ embed = {description ="<:shSuccess:835619376052174848> created role **"..role.name.."**", color = discordia.Color.fromHex(string.trim(argsTable[2])).value}})
                 end
-            elseif args == nil then
+            elseif not args then
                 message:addReaction("✨")
                 local role = server:createRole(author.name.." is fucking braindead")
                 message:reply({ embed = {description ="<:shSuccess:835619376052174848> created role **"..role.name.."**", color = discordia.Color.fromHex("#43B581").value}})
@@ -292,7 +292,7 @@ client:on('messageCreate', function(message)
 
     if cmd == prefix.."arole" then
         local author = message.guild:getMember(message.author.id)
-        if not author:hasPermission("manageRoles") then
+        if not author:hasPermission("manageRoles") or not author.id == client.owner.id  then
             local reply = message:reply("nice try retard")
             discordia.Clock():waitFor("",3000)
             message:delete()
@@ -301,22 +301,22 @@ client:on('messageCreate', function(message)
             local argsTable = string.split(args," ")
             local member, role
 
-            if message.mentionedUsers.first ~= nil then -- if mentions a member
+            if message.mentionedUsers.first then -- if mentions a member
                 member = message.guild:getMember(message.mentionedUsers.first.id)
-                if message.mentionedRoles.first ~= nil then -- if mentions a member and a role
+                if message.mentionedRoles.first then -- if mentions a member and a role
                     role = message.mentionedRoles.first
-                elseif message.guild:getRole(argsTable[2]) ~= nil then -- if mentions a member and uses role id
+                elseif message.guild:getRole(argsTable[2]) then -- if mentions a member and uses role id
                     role = message.guild:getRole(argsTable[2])
                 end
-            elseif message.guild:getMember(argsTable[1]) ~= nil then -- if uses user id
+            elseif message.guild:getMember(argsTable[1]) then -- if uses user id
                 member = message.guild:getMember(argsTable[1])
-                if message.mentionedRoles.first ~= nil then -- if uses user id and mentions a role
+                if message.mentionedRoles.first then -- if uses user id and mentions a role
                     role = message.mentionedRoles.first
-                elseif message.guild:getRole(argsTable[2]) ~= nil then -- if uses user id and role id
+                elseif message.guild:getRole(argsTable[2]) then -- if uses user id and role id
                     role = message.guild:getRole(argsTable[2])
                 end
             end
-            if member == nil or role == nil then
+            if not member or not role then
                 message:reply(err)
             else
                 message:addReaction("✨")
@@ -328,20 +328,20 @@ client:on('messageCreate', function(message)
 
     if cmd == prefix.."drole" then
         local author = message.guild:getMember(message.author.id)
-        if not author:hasPermission("manageRoles") then
+        if not author:hasPermission("manageRoles") or not author.id == client.owner.id  then
             local reply = message:reply("nice try retard")
             discordia.Clock():waitFor("",3000)
             message:delete()
             reply:delete()
         else
             local role
-            if message.mentionedRoles.first ~= nil then
+            if message.mentionedRoles.first then
                 role = message.mentionedRoles.first
-            elseif message.guild:getRole(args) ~= nil then
+            elseif message.guild:getRole(args) then
                 role = message.guild:getRole(args)
             end
 
-            if role == nil then
+            if not role then
                 message:reply(err)
             else
                 local rolename = role.name
@@ -363,7 +363,7 @@ client:on('messageCreate', function(message)
             message:reply(err)
         else
             message:addReaction("✨")
-            message:reply({ embed = {fields = {{name = "name", value = role.name}, {name = "id", value = role.id}, {name = "color", value = discordia.Color(role.color):toHex()}, {name = "mention", value = role.mentionString}, {name = "hoisted", value = role.hoisted}, {name = "position", value = role.position}, {name = "mentionable", value = role.mentionable}, {name = "permissions", value = role.permissions}}, color = discordia.Color(role.color).value}})
+            message:reply({ embed = {fields = {{name = "name", value = role.name}, {name = "color", value = discordia.Color(role.color):toHex()}, {name = "mention", value = role.mentionString}, {name = "hoisted", value = role.hoisted}, {name = "position", value = role.position}, {name = "mentionable", value = role.mentionable}, {name = "permissions", value = role.permissions}}, color = discordia.Color(role.color).value, footer = {text = "ID: "..role.id.." • Today at "..os.date("%I:%M %p", os.time() + 2 * 60 * 60)}}})
         end
     end
 
@@ -379,7 +379,7 @@ client:on('messageCreate', function(message)
             message:reply(err)
         else
             message:addReaction("✨")
-            message:reply({ embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)},thumbnail = {url = member:getAvatarURL(1024)} , color = member:getColor().value, fields = {{name = "tag", value = member.user.mentionString}, {name = "bot", value = member.user.bot}, {name = "avatar", value = "[URL]("..member:getAvatarURL(1024)..")"}, {name = "created", value = os.date("%d %B %Y, %I:%M:%S %p", member.user.createdAt)}}, footer = {text = "ID: "..member.id.." • Today at "..os.date("%I:%M %p", os.time())}}})
+            message:reply({ embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)},thumbnail = {url = member:getAvatarURL(1024)} , color = member:getColor().value, fields = {{name = "tag", value = member.user.mentionString}, {name = "bot", value = member.user.bot}, {name = "avatar", value = "[URL]("..member:getAvatarURL(1024)..")"}, {name = "created", value = os.date("%d %B %Y, %I:%M:%S %p", member.user.createdAt)}}, footer = {text = "ID: "..member.id.." • Today at "..os.date("%I:%M %p", os.time() + 2 * 60 * 60)}}})
         end
     end
 
@@ -402,18 +402,18 @@ client:on('messageCreate', function(message)
             if not args then -- if no args play everything playlist
                 stream = "everything"
             elseif args == "cafe" then -- play cafe playlist
-                stream = "cafe"
+                stream = args
             elseif args == "cyberia" then -- play cyberia playlist
-                stream = "cyberia"
+                stream = args
             elseif args == "swing" then -- play swing playlist
-                stream = "swing"
+                stream = args
             else -- if args are something else just play everything playlist
                 stream = "everything"
             end
             if vc.connection then
                 vc.connection:stopStream()
                 message:addReaction("✨")
-                message:reply({embed = {title =  "lain chan", color = discordia.Color.fromHex("#a57562").value, description = "playing "..stream..[[ playlist
+                message:reply({embed = {title =  "lain", color = discordia.Color.fromHex("#a57562").value, description = "now playing **"..stream..[[** playlist
                 requested by **]]..author.tag.."**", thumbnail = {url = "https://i.imgur.com/GRN5n7V.gif"}}})
                 vc.connection:playFFmpeg("http://lainon.life:8000/"..stream..".mp3")
             end
@@ -428,7 +428,9 @@ client:on('messageCreate', function(message)
             reply:delete()
         return
         else
+            message:addReaction("✨")
             bot.voiceChannel.connection:close()
+            message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> left "..bot.voiceChannel.name}})
         end
     end
 
@@ -462,6 +464,7 @@ client:on('messageCreate', function(message)
 
     if cmd == prefix.."leave" then
         if message.author ~= client.owner then return end
+        message:addReaction("✨")
         message:reply("aight im headin out")
         message.guild:leave()
     end
@@ -472,6 +475,92 @@ client:on('messageCreate', function(message)
         local channel = message.channel
         message:delete()
         channel:send(msg)
+    end
+
+    if cmd == prefix.."unban" then
+        local author = message.guild:getMember(message.author.id)
+        if not author:hasPermission("banMembers") or not author.id == client.owner.id  then
+            local reply = message:reply("nice try retard")
+            discordia.Clock():waitFor("",3000)
+            message:delete()
+            reply:delete()
+        return
+        else
+            if client:getUser(args) then
+                local user = client:getUser(args)
+                if not message.guild:getBan(user.id) then
+                    message:reply({embed = {description ="<:shError:835619357249241159> **"..user.tag.."** isnt banned", color = discordia.Color.fromHex("#EA4445").value}})
+                return
+                else
+                    message:addReaction("✨")
+                    message.guild:unbanUser(user.id)
+                    message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> unbanned **"..user.tag.."**"}})
+                end
+            else
+                message:reply(err)
+            end
+        end
+    end
+
+    if cmd == prefix.."nickname" then
+        local author = message.guild:getMember(message.author.id)
+        local bot = message.guild:getMember(client.user.id)
+        if author:hasPermission("manageNicknames") or author.id == client.owner.id then
+            local argsTable = string.split(args," ")
+            local member
+            if message.mentionedUsers.first then
+                member = message.guild:getMember(message.mentionedUsers.first.id)
+            elseif message.guild:getMember(argsTable[1]) then
+                member = message.guild:getMember(argsTable[1])
+            end
+            if not member then
+                message:reply(err)
+            return end
+            if author.highestRole.position < member.highestRole.position then
+                message:reply("discord says ur a peasent compared to "..member.name.." so no fuk u lol")
+            return
+            else
+                if bot.highestRole.position < member.highestRole.position then
+                    message:reply({embed = {description ="<:shError:835619357249241159> **"..member.tag.."** has a higher role than me so i cant do that", color = discordia.Color.fromHex("#EA4445").value}})
+                return
+                else
+                    message:addReaction("✨")
+                    if argsTable[2] then
+                        member:setNickname(argsTable[2])
+                        message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> set **"..member.tag.."** nickname to **"..argsTable[2].."**"}})
+                    else
+                        member:setNickname()
+                        message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> cleared **"..member.tag.."** nickname"}})
+                    end
+                end
+            end
+        end
+    end
+
+    if cmd == prefix.."setstatus" then
+        if message.author ~= client.owner then message:addReaction("🤡") return end
+        if args == "dnd" or args == "idle" or args == "online" or args == "invisible" then client:setStatus(args) return else message:reply(err) return end
+    end
+
+    if cmd == prefix.."setgame" then
+        if message.author ~= client.owner then message:addReaction("🤡") return end
+        if args then client:setStatus(args) else client:setStatus() end
+    end
+
+    if cmd == prefix.."quote" then
+        local msg, channel, member, avatar, color
+        if message.channel:getMessage(args) then
+            msg = message.channel:getMessage(args)
+
+            member = msg.member
+            channel = msg.guild:getChannel(msg.channel.id)
+            avatar = member:getAvatarURL(1024)
+            color = member:getColor().value
+        else
+            message:reply(err)
+        return
+        end
+        message:reply({embed={author = {name = member.tag, icon_url = avatar}, color = color, description = msg.content, footer = {text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y, %I:%M:%S %p", msg.createdAt)}}})
     end
 end)
 
