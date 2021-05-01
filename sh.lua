@@ -41,6 +41,7 @@ client:on('voiceChannelJoin', function(member, vc)
         channel = guild:getChannel("798591060375896064") --voiceless fla7
     end
 
+    if member.id == client.user.id then return end
     local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** joined "..vc.name, color = discordia.Color.fromHex("#a57562").value}})
     discordia.Clock():waitFor("",5000)
     msg:delete()
@@ -56,6 +57,7 @@ client:on('voiceChannelLeave', function(member, vc)
         channel = guild:getChannel("798591060375896064") --voiceless fla7
     end
 
+    if member.id == client.user.id then return end
     local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** left "..vc.name, color = discordia.Color.fromHex("#a57562").value}})
     discordia.Clock():waitFor("",5000)
     msg:delete()
@@ -71,6 +73,7 @@ client:on('voiceUpdate', function(member)
         channel = guild:getChannel("798591060375896064") --voiceless fla7
     end
 
+    if member.id == client.user.id then return end
     local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."**'s voice status has been updated", color = discordia.Color.fromHex("#a57562").value}})
     discordia.Clock():waitFor("",5000)
     msg:delete()
@@ -408,7 +411,8 @@ client:on('messageCreate', function(message)
                 stream = "everything"
             end
             if vc.connection then
-                message:addReaction("✨")message:reply({embed = {title =  "lain chan", color = discordia.Color.fromHex("#a57562").value, description = "playing "..stream..[[ playlist
+                message:addReaction("✨")
+                message:reply({embed = {title =  "lain chan", color = discordia.Color.fromHex("#a57562").value, description = "playing "..stream..[[ playlist
                 requested by **]]..author.tag.."**", thumbnail = {url = "https://i.imgur.com/GRN5n7V.gif"}}})
                 vc.connection:playFFmpeg("http://lainon.life:8000/"..stream..".mp3")
             end
@@ -433,7 +437,9 @@ client:on('messageCreate', function(message)
             message:reply(err)
         return
         else
+            message:addReaction("✨")
             bot.voiceChannel.connection:pauseStream()
+            message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> stream paused"}})
         end
     end
 
@@ -443,7 +449,9 @@ client:on('messageCreate', function(message)
             message:reply(err)
         return
         else
+            message:addReaction("✨")
             bot.voiceChannel.connection:resumeStream()
+            message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> stream resumed"}})
         end
     end
 
