@@ -116,18 +116,16 @@ client:on('messageCreate', function(message)
     if cmd == prefix.."color" then
         local author = message.guild:getMember(message.author.id)
         local decimal, hex, r, g, b, rgb
-        if args == nil then --no input after command, default to highest role color
+        if not args then --no input after command, default to highest role color
             decimal = author:getColor().value
             hex = discordia.Color(decimal):toHex()
             r,g,b = discordia.Color(decimal):toRGB()
             rgb = r..", "..g..", "..b
-            message:reply({embed = {fields = { {name = "Hex", value = hex}, {name = "RGB", value = rgb}, {name = "Decimal", value = decimal}},color = discordia.Color.fromHex(hex).value;}})
         elseif isHex(args) then -- check if input is a hex
-                hex = args:upper()
-                decimal = discordia.Color.fromHex(hex).value
-                r,g,b = discordia.Color(decimal):toRGB()
-                rgb = r..", "..g..", "..b
-                message:reply({embed = {fields = { {name = "Hex", value = hex}, {name = "RGB", value = rgb}, {name = "Decimal", value = decimal}},color = discordia.Color.fromHex(hex).value;}})
+            hex = args:upper()
+            decimal = discordia.Color.fromHex(hex).value
+            r,g,b = discordia.Color(decimal):toRGB()
+            rgb = r..", "..g..", "..b
         elseif string.find(args, ",") ~= nil then -- basic check if input is rgb
             local rgbTable = string.split(args, ",")
             r,g,b = tonumber(string.trim(rgbTable[1])),tonumber(string.trim(rgbTable[2])),tonumber(string.trim(rgbTable[3]))
@@ -230,7 +228,7 @@ client:on('messageCreate', function(message)
     if cmd == prefix.."time" then --command to display my own time in my own timezone
         local author = message.guild:getMember(client.owner.id)
         local time = os.date("!%I:%M:%S %p", os.time() + 2 * 60 * 60)
-        local date = os.date("!%d %B, %Y", os.time() + 2 * 60 * 60)
+        local date = os.date("!%d %B %Y", os.time() + 2 * 60 * 60)
         local dayoftheweek = os.date("!%A", os.time() + 2 * 60 * 60)
         message:reply({embed = {author = {name = author.tag, icon_url = author:getAvatarURL()}, fields = {{name = "Time", value = time}, {name = "Date", value = date}, {name = "Day", value = dayoftheweek:upper()}}, thumbnail = {url = "https://i.imgur.com/9Tq1txG.png"},color = discordia.Color.fromHex("#a57562").value;}})
     end
@@ -350,9 +348,115 @@ client:on('messageCreate', function(message)
             end
         end
     end
-    
+
+    if cmd == prefix.."role" then
+        local role
+        if message.mentionedRoles.first then
+            role = message.mentionedRoles.first
+        elseif message.guild:getRole(args) then
+            role = message.guild:getRole(args)
+        end
+        if not role then
+            message:reply(err)
+        else
+            message:addReaction("✨")
+            message:reply({ embed = {fields = {{name = "name", value = role.name}, {name = "id", value = role.id}, {name = "color", value = discordia.Color(role.color):toHex()}, {name = "mention", value = role.mentionString}, {name = "hoisted", value = role.hoisted}, {name = "position", value = role.position}, {name = "mentionable", value = role.mentionable}, {name = "permissions", value = role.permissions}}, color = discordia.Color(role.color).value}})
+        end
+    end
+
+    if cmd == prefix.."user" or cmd == prefix.."whois" then
+        local member
+        if message.mentionedUsers.first then
+            member = message.guild:getMember(message.mentionedUsers.first.id)
+        elseif message.guild:getMember(args) then
+            member = message.guild:getMember(args)
+        end
+
+        if not member then
+            message:reply(err)
+        else
+            message:addReaction("✨")
+            message:reply({ embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)},thumbnail = {url = member:getAvatarURL(1024)} , color = member:getColor().value, fields = {{name = "tag", value = member.user.mentionString}, {name = "bot", value = member.user.bot}, {name = "avatar", value = "[URL]("..member:getAvatarURL(1024)..")"}, {name = "created", value = os.date("%d %B %Y, %I:%M:%S %p", member.user.createdAt)}}, footer = {text = "ID: "..member.id.." • Today at "..os.date("%I:%M %p", os.time())}}})
+        end
+    end
+
+    if cmd == prefix.."lain" then
+        local author = message.guild:getMember(message.author.id)
+        local vc
+        if not author.voiceChannel then
+            local reply = message:reply("join a voice channel first retard")
+            discordia.Clock():waitFor("",5000)
+            reply:delete()
+        return
+        else
+            vc = author.voiceChannel
+            vc:join()
+        end
+        if not vc then
+            message:reply(err)
+        else
+            local stream
+            if not args then -- if no args play everything playlist
+                stream = "everything"
+            elseif args == "cafe" then -- play cafe playlist
+                stream = "cafe"
+            elseif args == "cyberia" then -- play cyberia playlist
+                stream = "cyberia"
+            elseif args == "swing" then -- play swing playlist
+                stream = "swing"
+            else -- if args are something else just play everything playlist
+                stream = "everything"
+            end
+            if vc.connection then
+                message:addReaction("✨")message:reply({embed = {title =  "lain chan", color = discordia.Color.fromHex("#a57562").value, description = "playing "..stream..[[ playlist
+                requested by **]]..author.tag.."**", thumbnail = {url = "https://i.imgur.com/GRN5n7V.gif"}}})
+                vc.connection:playFFmpeg("http://lainon.life:8000/"..stream..".mp3")
+            end
+        end
+    end
+
+    if cmd == prefix.."die" or cmd == prefix.."dc" or cmd == prefix.."disconnect" then
+        local bot = message.guild:getMember(client.user.id)
+        if not bot.voiceChannel then
+            local reply = message:reply("are u braindead?")
+            discordia.Clock():waitFor("",5000)
+            reply:delete()
+        return
+        else
+            bot.voiceChannel.connection:close()
+        end
+    end
+
+    if cmd == prefix.."pause" then
+        local bot = message.guild:getMember(client.user.id)
+        if not bot.voiceChannel then
+            message:reply(err)
+        return
+        else
+            bot.voiceChannel.connection:pauseStream()
+        end
+    end
+
+    if cmd == prefix.."resume" then
+        local bot = message.guild:getMember(client.user.id)
+        if not bot.voiceChannel then
+            message:reply(err)
+        return
+        else
+            bot.voiceChannel.connection:resumeStream()
+        end
+    end
+
     if cmd == prefix.."help" then
         message:reply("لأ")
+    end
+
+    if cmd == prefix.."leave" then
+        local author = message.guild:getMember(message.author.id)
+        if author.id == client.owner.id then
+            message:reply("aight im headin out")
+            message.guild:leave()
+        end
     end
 
     if cmd == prefix.."say" then
