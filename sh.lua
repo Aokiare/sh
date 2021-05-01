@@ -548,19 +548,21 @@ client:on('messageCreate', function(message)
     end
 
     if cmd == prefix.."quote" then
-        local msg, channel, member, avatar, color
+        local msg, channel, member, content
         if message.channel:getMessage(args) then
             msg = message.channel:getMessage(args)
-
-            member = msg.member
-            channel = msg.guild:getChannel(msg.channel.id)
-            avatar = member:getAvatarURL(1024)
-            color = member:getColor().value
+            content = msg.content
+        elseif args then
+            msg = message
+            message:delete()
+            content = msg.content:gsub("%"..prefix.."quote ","")
         else
             message:reply(err)
-        return
+            return
         end
-        message:reply({embed={author = {name = member.tag, icon_url = avatar}, color = color, description = msg.content, footer = {text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y, %I:%M:%S %p", msg.createdAt)}}})
+        member = msg.member
+        channel = msg.guild:getChannel(msg.channel.id)
+        message:reply({embed={author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, color = member:getColor().value, description = content, footer = {text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y, %I:%M:%S %p", msg.createdAt)}}})
     end
 end)
 
