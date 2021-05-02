@@ -415,8 +415,8 @@ client:on('messageCreate', function(message)
             if vc.connection then
                 vc.connection:stopStream()
                 message:addReaction("✨")
-                message:reply({embed = {title =  "lain", color = discordia.Color.fromHex("#a57562").value, description = "now playing **"..stream..[[** playlist
-                requested by **]]..author.tag.."**", thumbnail = {url = "https://i.imgur.com/GRN5n7V.gif"}}})
+                message:reply({embed = {title =  "lain", color = discordia.Color.fromHex("#a57562").value, description = "<a:standing:794754758694141953> playing **"..stream..[[**
+                <a:letsalllovelain:801056234823745537> requested by **]]..author.tag.."**", thumbnail = {url = "https://i.imgur.com/GRN5n7V.gif"}}})
                 vc.connection:playFFmpeg("http://lainon.life:8000/"..stream..".mp3")
             end
         end
