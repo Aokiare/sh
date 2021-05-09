@@ -460,10 +460,6 @@ client:on('messageCreate', function(message)
         end
     end
 
-    if cmd == prefix.."help" then
-        message:reply("لأ")
-    end
-
     if cmd == prefix.."leave" then
         if message.author ~= client.owner then return end
         message:addReaction("✨")
@@ -565,6 +561,42 @@ client:on('messageCreate', function(message)
         member = msg.member
         channel = msg.guild:getChannel(msg.channel.id)
         message:reply({embed={author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, color = member:getColor().value, description = content, footer = {text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y, %I:%M:%S %p", msg.createdAt + 2 * 60 * 60)}}})
+    end
+    if cmd == prefix.."help" then
+        local bot = client:getUser(client.user.id)
+        local owner = client:getUser(client.owner.id)
+        message:reply({
+            embed = {
+                author = {
+                    name = bot.name.." help page",
+                    icon_url = bot:getAvatarURL(1024)
+                },
+                color = discordia.Color.fromHex("#a57562").value,
+                fields = {
+                    {
+                        name = "info",
+                        value = "`ping` `avatar` `color` `time` `user` `role` `help`"
+                    },
+                    {
+                        name = "audio",
+                        value = "`lain` `pause` `resume` `die`"
+                    },
+                    {
+                        name = "moderation",
+                        value = "`kick` `ban` `unban` `nickname` `clear` `crole` `arole` `drole`"
+                    },
+                    {
+                        name = "misc",
+                        value = "`quote`"
+                    },
+                    {
+                        name = "owner",
+                        value = "`say` `setstatus` `setgame` `leave`"
+                    }
+                },
+                footer = {text = bot.name.." is owned by "..owner.tag}
+            }
+        })
     end
 end)
 
