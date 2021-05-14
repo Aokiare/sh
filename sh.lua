@@ -1,14 +1,11 @@
+---@diagnostic disable: undefined-field
 local discordia = require('discordia')
 local client = discordia.Client()
 local FileReader = require ('fs')
-local http = require('coro-http')
 discordia.extensions()
 
-local prefix = ">"
--- local botToken = assert(FileReader.readFileSync("./token")) -- token plaintext file
-local botToken = os.getenv("botToken") -- replit env
-
-http.createServer("0.0.0.0", 8000) -- replit keep alive
+local prefix = ">>"
+local botToken = assert(FileReader.readFileSync("./token")) -- token plaintext file
 
 local function startsWith(str, start)
     return str:sub(1, #start) == start
@@ -28,7 +25,7 @@ end
 
 client:on('ready', function()
     client:setStatus("dnd")
-    print(os.date("!%F %T", os.time() + 2 * 60 * 60).." | \027[94m[BOT]\027[0m     | "..client.user.username.." is online!")
+    print(os.date("%F %T", os.time()).." | \027[94m[BOT]\027[0m     | "..client.user.username.." is online!")
 end)
 
 client:on('voiceChannelJoin', function(member, vc)
@@ -230,9 +227,9 @@ client:on('messageCreate', function(message)
 
     if cmd == prefix.."time" then --command to display my own time in my own timezone
         local author = message.guild:getMember(client.owner.id)
-        local time = os.date("!%I:%M:%S %p", os.time() + 2 * 60 * 60)
-        local date = os.date("!%d %B %Y", os.time() + 2 * 60 * 60)
-        local dayoftheweek = os.date("!%A", os.time() + 2 * 60 * 60)
+        local time = os.date("%I:%M:%S %p", os.time())
+        local date = os.date("%d %B %Y", os.time())
+        local dayoftheweek = os.date("%A", os.time())
         message:reply({embed = {author = {name = author.tag, icon_url = author:getAvatarURL()}, fields = {{name = "Time", value = time}, {name = "Date", value = date}, {name = "Day", value = dayoftheweek:upper()}}, thumbnail = {url = "https://i.imgur.com/9Tq1txG.png"},color = discordia.Color.fromHex("#a57562").value;}})
     end
 
@@ -363,7 +360,7 @@ client:on('messageCreate', function(message)
             message:reply(err)
         else
             message:addReaction("✨")
-            message:reply({ embed = {fields = {{name = "name", value = role.name}, {name = "color", value = discordia.Color(role.color):toHex()}, {name = "mention", value = role.mentionString}, {name = "hoisted", value = role.hoisted}, {name = "position", value = role.position}, {name = "mentionable", value = role.mentionable}, {name = "permissions", value = role.permissions}}, color = discordia.Color(role.color).value, footer = {text = "ID: "..role.id.." • Today at "..os.date("%I:%M %p", os.time() + 2 * 60 * 60)}}})
+            message:reply({ embed = {fields = {{name = "name", value = role.name}, {name = "color", value = discordia.Color(role.color):toHex()}, {name = "mention", value = role.mentionString}, {name = "hoisted", value = role.hoisted}, {name = "position", value = role.position}, {name = "mentionable", value = role.mentionable}, {name = "permissions", value = role.permissions}}, color = discordia.Color(role.color).value, footer = {text = "ID: "..role.id.." • Today at "..os.date("%I:%M %p", os.time())}}})
         end
     end
 
@@ -379,14 +376,14 @@ client:on('messageCreate', function(message)
             message:reply(err)
         else
             message:addReaction("✨")
-            message:reply({ embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)},thumbnail = {url = member:getAvatarURL(1024)} , color = member:getColor().value, fields = {{name = "tag", value = member.user.mentionString}, {name = "bot", value = member.user.bot}, {name = "avatar", value = "[URL]("..member:getAvatarURL(1024)..")"}, {name = "created", value = os.date("%d %B %Y, %I:%M:%S %p", member.user.createdAt + 2 * 60 * 60)}}, footer = {text = "ID: "..member.id.." • Today at "..os.date("%I:%M %p", os.time() + 2 * 60 * 60)}}})
+            message:reply({ embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)},thumbnail = {url = member:getAvatarURL(1024)} , color = member:getColor().value, fields = {{name = "tag", value = member.user.mentionString}, {name = "bot", value = member.user.bot}, {name = "avatar", value = "[URL]("..member:getAvatarURL(1024)..")"}, {name = "created", value = os.date("%d %B %Y, %I:%M:%S %p", member.user.createdAt)}}, footer = {text = "ID: "..member.id.." • Today at "..os.date("%I:%M %p", os.time())}}})
         end
     end
 
     if cmd == prefix.."lain" then
         local author = message.guild:getMember(message.author.id)
         local vc
-        if not author.voiceChannel then
+        if not author.voiceChannel and not client.user.voiceChannel then
             local reply = message:reply("join a voice channel first retard")
             discordia.Clock():waitFor("",5000)
             reply:delete()
@@ -416,7 +413,7 @@ client:on('messageCreate', function(message)
                 vc.connection:stopStream()
                 message:addReaction("✨")
                 message:reply({embed = {title =  "lain", color = discordia.Color.fromHex("#a57562").value, description = "<a:standing:794754758694141953> playing **"..stream..[[**
-                <a:letsalllovelain:801056234823745537> requested by **]]..author.tag.."**", thumbnail = {url = "https://i.imgur.com/GRN5n7V.gif"}}})
+<a:letsalllovelain:801056234823745537> requested by **]]..author.tag.."**", thumbnail = {url = "https://i.imgur.com/GRN5n7V.gif"}}})
                 vc.connection:playFFmpeg("http://lainon.life:8000/"..stream..".mp3")
             end
         end
@@ -461,14 +458,14 @@ client:on('messageCreate', function(message)
     end
 
     if cmd == prefix.."leave" then
-        if message.author ~= client.owner then return end
+        if message.author ~= client.owner then message:addReaction("🤡") return end
         message:addReaction("✨")
         message:reply("aight im headin out")
         message.guild:leave()
     end
 
     if cmd == prefix.."say" then
-        if message.author ~= client.owner then return end
+        if message.author ~= client.owner then message:addReaction("🤡") return end
         local msg = args
         local channel = message.channel
         message:delete()
@@ -560,8 +557,9 @@ client:on('messageCreate', function(message)
         end
         member = msg.member
         channel = msg.guild:getChannel(msg.channel.id)
-        message:reply({embed={author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, color = member:getColor().value, description = content, footer = {text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y, %I:%M:%S %p", msg.createdAt + 2 * 60 * 60)}}})
+        message:reply({embed={author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, color = member:getColor().value, description = content, footer = {text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y, %I:%M:%S %p", msg.createdAt)}}})
     end
+
     if cmd == prefix.."help" then
         local bot = client:getUser(client.user.id)
         local owner = client:getUser(client.owner.id)
