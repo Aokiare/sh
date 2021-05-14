@@ -1,15 +1,12 @@
 ---@diagnostic disable: undefined-field
 _G.discordia = require("discordia")
 _G.client = discordia.Client()
+_G.FileReader = require ("fs")
+discordia.extensions()
 _G.helpers = require("./modules/helpers")
 _G.config = require("./modules/config")
 _G.voiceAnnouncements = require("./modules/voiceAnnouncements")
 _G.commands = require("./commands")
-_G.FileReader = require ("fs")
-discordia.extensions()
-
-local prefix = ">>"
-local botToken = assert(FileReader.readFileSync("./token")) -- token plaintext file
 
 client:on("ready", function()
     client:setStatus("dnd")
