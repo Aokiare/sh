@@ -38,7 +38,7 @@ client:on("messageCreate", function(message)
         _cmd, _G.args = message.content:match("^(%S+)%s+(.+)$")
 
         -- Run a command if it exists
-        if commands[command] ~= nil then
+        if commands[command] then
             commands[command].command(message)
         end
     end

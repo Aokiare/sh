@@ -10,6 +10,9 @@ commands["clear"] = require("./admin/clear")
 commands["crole"] = require ("./admin/crole")
 commands["arole"] = require ("./admin/arole")
 commands["drole"] = require ("./admin/drole")
+commands["role"] = require ("./role")
+commands["user"] = require ("./user")
+commands["lain"] = require ("./voice/lain")
 
 commands["help"] =
 {
