@@ -5,6 +5,7 @@ _G.FileReader = require ("fs")
 discordia.extensions()
 _G.helpers = require("./modules/helpers")
 _G.config = require("./modules/config")
+_G.keepAlive = require("./modules/keepAlive")
 _G.voiceAnnouncements = require("./modules/voiceAnnouncements")
 _G.commands = require("./commands")
 
