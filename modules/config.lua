@@ -1,2 +1,2 @@
-_G.prefix = ">>"
-_G.botToken = assert(FileReader.readFileSync("./token"))
+_G.prefix = ">"
+_G.botToken = os.getenv("botToken")

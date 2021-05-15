@@ -12,7 +12,7 @@ _G.commands = require("./commands")
 
 client:on("ready", function()
     client:setStatus("dnd")
-    print(os.date("%F %T", os.time()).." | \027[94m[BOT]\027[0m     | "..client.user.username.." is online!")
+    print(os.date("%F %T", os.time() + 2 * 60 * 60).." | \027[94m[BOT]\027[0m     | "..client.user.username.." is online!")
     _G.bot = client:getUser(client.user.id)
     _G.owner = client:getUser(client.owner.id)
     collectgarbage("collect")
