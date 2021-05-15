@@ -3,10 +3,17 @@
 
 token
 
-sodium.dll
+*.dll
 
-opus.dll
+*.so
+
+*.log
 
 gateway.json
 
-discordia.log
+lit
+
+luvi
+
+luvit
+
