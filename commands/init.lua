@@ -1,7 +1,9 @@
 local commands = {}
 commands["ban"] = require("./admin/ban")
+commands["unban"] = require("./admin/unban")
 commands["kick"] = require("./admin/kick")
 commands["clear"] = require("./admin/clear")
+commands["nickname"] = require("./admin/nickname")
 commands["crole"] = require ("./admin/crole")
 commands["arole"] = require ("./admin/arole")
 commands["drole"] = require ("./admin/drole")
@@ -12,10 +14,15 @@ commands["info"] = require("./misc/info")
 commands["time"] = require("./misc/time")
 commands["role"] = require ("./misc/role")
 commands["user"] = require ("./misc/user")
+commands["quote"] = require ("./misc/quote")
 commands["lain"] = require ("./voice/lain")
 commands["disconnect"] = require ("./voice/disconnect")
 commands["pause"] = require ("./voice/pause")
 commands["resume"] = require ("./voice/resume")
+commands["leave"] = require ("./owner/leave")
+commands["say"] = require ("./owner/say")
+commands["setstatus"] = require ("./owner/setstatus")
+commands["setgame"] = require ("./owner/setgame")
 
 commands["help"] =
 {
