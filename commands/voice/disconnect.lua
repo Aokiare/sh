@@ -5,7 +5,7 @@ return {
     command = function (message)
         local bot = message.guild:getMember(client.user.id)
         if not bot.voiceChannel then
-            local reply = message:reply(" u braindead?")
+            local reply = message:reply("im not even in a vc dumbass")
             discordia.Clock():waitFor("",5000)
             reply:delete()
         return
