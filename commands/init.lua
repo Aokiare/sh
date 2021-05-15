@@ -13,6 +13,9 @@ commands["time"] = require("./misc/time")
 commands["role"] = require ("./misc/role")
 commands["user"] = require ("./misc/user")
 commands["lain"] = require ("./voice/lain")
+commands["disconnect"] = require ("./voice/disconnect")
+commands["pause"] = require ("./voice/pause")
+commands["resume"] = require ("./voice/resume")
 
 commands["help"] =
 {

@@ -5,6 +5,7 @@ _G.FileReader = require ("fs")
 discordia.extensions()
 _G.helpers = require("./modules/helpers")
 _G.config = require("./modules/config")
+_G.alias = require("./modules/aliases")
 _G.keepAlive = require("./modules/keepAlive")
 _G.voiceAnnouncements = require("./modules/voiceAnnouncements")
 _G.commands = require("./commands")
@@ -36,6 +37,12 @@ client:on("messageCreate", function(message)
         local command = string.sub(message.content,#prefix+1,message.content:find("%s"))
         command = command:gsub("%s+","")
         _cmd, _G.args = message.content:match("^(%S+)%s+(.+)$")
+
+        for key, value in pairs(aliases) do
+            if command == key then
+                command = value
+            end
+        end
 
         -- Run a command if it exists
         if commands[command] then
