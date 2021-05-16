@@ -1,10 +1,10 @@
 return {
-    name = "arole",
-    description = "add a role to a member",
+    name = "rrole",
+    description = "remove a role from a member",
     hidden = false,
     command = function (message)
         local author = message.guild:getMember(message.author.id)
-        if not author:hasPermission("manageRoles") or not author.id == owner.id  then
+        if not author:hasPermission("manageRoles") or author.id == owner.id then
             local reply = message:reply("nice try retard")
             discordia.Clock():waitFor("",3000)
             message:delete()
@@ -32,7 +32,7 @@ return {
                 message:reply(err)
             else
                 message:addReaction("✨")
-                member:addRole(role.id)
+                member:removeRole(role.id)
                 message:reply({ embed = {description ="<:shSuccess:835619376052174848> added **"..role.name.."** to **"..member.tag.."**", color = discordia.Color.fromHex("#43B581").value}})
             end
         end
