@@ -4,7 +4,7 @@ return {
     hidden = false,
     command = function (message)
         local author = message.guild:getMember(message.author.id)
-        if not author:hasPermission("manageRoles") or author.id == owner.id then
+        if not author:hasPermission("manageRoles") or not author.id == owner.id then
             local reply = message:reply("nice try retard")
             discordia.Clock():waitFor("",3000)
             message:delete()
