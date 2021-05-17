@@ -5,7 +5,7 @@ return {
     command = function (message)
         local author = message.guild:getMember(message.author.id)
         local channel = message.guild:getChannel(message.channel.id)
-        if author:hasPermission("manageMessages") and helpers.isNumeric(args) then
+        if author:hasPermission("manageMessages") and utils.isNumeric(args) then
             message:delete()
             channel:bulkDelete(message.channel:getMessagesBefore(message.id, args))
             if args == "1" then

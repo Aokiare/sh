@@ -3,7 +3,7 @@ _G.discordia = require("discordia")
 _G.client = discordia.Client()
 _G.FileReader = require ("fs")
 discordia.extensions()
-_G.helpers = require("./modules/helpers")
+_G.utils = require("./modules/utils")
 _G.config = require("./modules/config")
 _G.alias = require("./modules/aliases")
 _G.keepAlive = require("./modules/keepAlive")
@@ -33,7 +33,7 @@ end)
 client:on("messageCreate", function(message)
     if message.author.bot or message.author == client.user then return end
 
-    if helpers.hasPrefix(message.content,prefix) then
+    if utils.hasPrefix(message.content,prefix) then
         local command = string.sub(message.content,#prefix+1,message.content:find("%s"))
         command = command:gsub("%s+","")
         _cmd, _G.args = message.content:match("^(%S+)%s+(.+)$")
