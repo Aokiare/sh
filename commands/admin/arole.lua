@@ -16,16 +16,24 @@ return {
             if message.mentionedUsers.first then -- if mentions a member
                 member = message.guild:getMember(message.mentionedUsers.first.id)
                 if message.mentionedRoles.first then -- if mentions a member and a role
-                    role = message.mentionedRoles.first
+                    role = message.guild:getRole(message.mentionedRoles.first.id)
                 elseif message.guild:getRole(argsTable[2]) then -- if mentions a member and uses role id
                     role = message.guild:getRole(argsTable[2])
                 end
             elseif message.guild:getMember(argsTable[1]) then -- if uses user id
                 member = message.guild:getMember(argsTable[1])
                 if message.mentionedRoles.first then -- if uses user id and mentions a role
-                    role = message.mentionedRoles.first
+                    role = message.guild:getRole(message.mentionedRoles.first.id)
                 elseif message.guild:getRole(argsTable[2]) then -- if uses user id and role id
                     role = message.guild:getRole(argsTable[2])
+                end
+            elseif not message.mentionedUsers.first and not message.guild:getMember(argsTable[1]) then
+                if message.mentionedRoles.first then
+                    member = author
+                    role = message.guild:getRole(message.mentionedRoles.first.id)
+                elseif message.guild:getRole(argsTable[1]) then
+                    member = author
+                    role = message.guild:getRole(argsTable[1])
                 end
             end
             if not member or not role then
