@@ -13,7 +13,7 @@ return {
                 if string.trim(argsTable[1]) then
                     message:addReaction("✨")
                     local role = server:createRole(string.trim(argsTable[1]))
-                    if string.trim(argsTable[2]) and helpers.isHex(string.trim(argsTable[2])) then
+                    if string.trim(argsTable[2]) and utils.isHex(string.trim(argsTable[2])) then
                         role:setColor(discordia.Color.fromHex(string.trim(argsTable[2])))
                     end
                     if argsTable[3] and string.trim(argsTable[3]) == "true" or string.trim(argsTable[3]) == "1" then
