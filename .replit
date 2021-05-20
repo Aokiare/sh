@@ -1,2 +1,2 @@
 language = "lua"
-run = "./luvit sh.lua"
+run = "while [ true ]; do ./luvit sh.lua ; done"
