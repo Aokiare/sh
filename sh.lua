@@ -9,6 +9,8 @@ _G.alias = require("./modules/aliases")
 _G.keepAlive = require("./modules/keepAlive")
 _G.voiceAnnouncements = require("./modules/voiceAnnouncements")
 _G.commands = require("./commands")
+_G.spawn = require("coro-spawn")
+_G.parse = require("url").parse
 
 client:on("ready", function()
     client:setStatus("dnd")
