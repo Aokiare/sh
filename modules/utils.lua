@@ -1,4 +1,28 @@
 local utils = {}
+function utils.getStream(url)
+    local child = spawn('youtube-dl', {
+        args = {'-g', url},
+        stdio = { nil, true, 2 }
+    })
+
+    local stream
+    for chunk in child.stdout.read do
+        local urls = chunk:split('\n')
+
+        for _, yturl in pairs(urls) do
+            local mime = parse(yturl, true).query.mime
+
+            if mime and mime:find('audio') == 1 then
+                stream = yturl
+            end
+        end
+    end
+
+    return stream
+end
+function utils.isLink(str)
+    return utils.startsWith(str, "http://") or utils.startsWith(str, "https://") or utils.startsWith(str, "www.") or utils.startsWith(str, "youtube.com/watch?v=")
+end
 function utils.hasPrefix(string,prefix)
 	if string:sub(1,#prefix) == prefix then
 		return true
