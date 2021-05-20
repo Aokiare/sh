@@ -27,7 +27,7 @@ return {
                     message:addReaction("✨")
                     if argsTable[2] then
                         member:setNickname(argsTable[2])
-                        message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> set **"..member.tag.."** nickname to **"..argsTable[2].."**"}})
+                        message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> changed **"..member.tag.."** nickname to **"..argsTable[2].."**"}})
                     else
                         member:setNickname()
                         message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> cleared **"..member.tag.."** nickname"}})
