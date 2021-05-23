@@ -5,13 +5,12 @@ return {
     command = function (message)
         local stopwatch = discordia.Stopwatch()
         stopwatch:start()
-        local reply = message:reply({embed = {description = "<a:rosebox_hearts:842568705015021590> pong", color = botColor}})
+        local reply = message:reply({embed = {description = "<a:rosebox_hearts:842568705015021590> calculating", color = botColor}})
         stopwatch:stop()
         local pingTime = math.floor(stopwatch:getTime():toMilliseconds())
         stopwatch:reset()
         reply:setEmbed{
-            description = [[<a:rosebox_hearts:842568705015021590> pong
-<a:time:845998443209031740> ]]..pingTime.."ms",
+            description = "<a:rosebox_hearts:842568705015021590> "..pingTime.."ms",
             color = botColor
         }
     end
