@@ -17,6 +17,6 @@ return {
         end
         member = msg.member
         channel = msg.guild:getChannel(msg.channel.id)
-        message:reply({embed={author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, color = member:getColor().value, description = content, footer = {text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y, %I:%M:%S %p", msg.createdAt)}}})
+        message:reply({embed={author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, color = member:getColor().value, description = content, footer = {text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y at %I:%M:%S%p", msg.createdAt)}}})
     end
 }
