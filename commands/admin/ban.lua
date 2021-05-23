@@ -20,7 +20,7 @@ return {
                         member:ban()
                     end
                 end
-                message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully banned mf(s)", color = discordia.Color.fromHex("#43B581").value}})
+                message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully banned mf(s)", color = successColor}})
             end
         elseif client:getUser(args) then
             if not author:hasPermission("banMembers") or not author.id == client.owner.id then
@@ -31,7 +31,7 @@ return {
             else
                 message:addReaction("✨")
                 message.guild:banUser(args)
-                message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully banned **"..args.tag.."**", color = discordia.Color.fromHex("#43B581").value}})
+                message:reply({ embed = {description ="<:shSuccess:835619376052174848> successfully banned **"..args.tag.."**", color = successColor}})
             end
         else
             message:reply(err)

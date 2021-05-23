@@ -9,11 +9,11 @@ return {
             message:delete()
             channel:bulkDelete(message.channel:getMessagesBefore(message.id, args))
             if args == "1" then
-                local reply = message:reply({ embed = {description =args.." message was deleted by **"..author.tag.."**", color = discordia.Color.fromHex("#a57562").value}})
+                local reply = message:reply({ embed = {description =args.." message was deleted by **"..author.tag.."**", color = botColor}})
                 discordia.Clock():waitFor("",3000)
                 reply:delete()
             else
-                local reply = message:reply({ embed = {description =args.." messages were deleted by **"..author.tag.."**", color = discordia.Color.fromHex("#a57562").value}})
+                local reply = message:reply({ embed = {description =args.." messages were deleted by **"..author.tag.."**", color = botColor}})
                 discordia.Clock():waitFor("",3000)
                 reply:delete()
             end

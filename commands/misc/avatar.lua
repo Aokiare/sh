@@ -20,7 +20,7 @@ return {
         elseif not message.guild:getMember(args) and client:getUser(args) then -- if used non member id return user avatar
             member = client:getUser(args)
             avatar = member:getAvatarURL(1024)
-            color = discordia.Color.fromHex("#a57562").value
+            color = botColor
         end
         if not avatar or not member or not color then
             message:reply(err)

@@ -12,7 +12,7 @@ return {
         else
             message:addReaction("✨")
             bot.voiceChannel.connection:close()
-            message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> left **"..bot.voiceChannel.name.."**"}})
+            message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> left **"..bot.voiceChannel.name.."**"}})
         end
     end
 }

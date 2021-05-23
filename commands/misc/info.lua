@@ -34,7 +34,7 @@ return {
                         inline = false
                     }
                 },
-                color = 0xa57562 -- hex color code
+                color = botColor -- hex color code
             }})
     end
 }

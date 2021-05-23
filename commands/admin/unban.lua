@@ -19,7 +19,7 @@ return {
                 else
                     message:addReaction("✨")
                     message.guild:unbanUser(user.id)
-                    message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> unbanned **"..user.tag.."**"}})
+                    message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> unbanned **"..user.tag.."**"}})
                 end
             else
                 message:reply(err)
