@@ -23,7 +23,7 @@ return {
                 local rolename = role.name
                 message:addReaction("✨")
                 role:delete()
-                message:reply({ embed = {description ="<:shSuccess:835619376052174848> deleted **"..rolename.."**", color = discordia.Color.fromHex("#43B581").value}})
+                message:reply({ embed = {description ="<:shSuccess:835619376052174848> deleted **"..rolename.."**", color = successColor}})
             end
         end
     end

@@ -10,7 +10,7 @@ return {
         else
             message:addReaction("✨")
             bot.voiceChannel.connection:pauseStream()
-            message:reply({embed = {color = discordia.Color.fromHex("#43B581").value, description = "<:shSuccess:835619376052174848> stream paused"}})
+            message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> stream paused"}})
         end
     end
 }

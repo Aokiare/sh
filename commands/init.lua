@@ -45,7 +45,7 @@ commands["help"] =
                 icon_url = bot:getAvatarURL(1024)
             },
             description = mess,
-            color = 0xa57562,
+            color = botColor,
             footer = {text = bot.name.." is owned by "..owner.tag.." • Today at "..os.date("%I:%M %p", os.time())}
         }})
 	end

@@ -9,7 +9,7 @@ _G.announceJoin = function (member, vc)
     end
 
     if member.id == client.user.id then return end
-    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** joined "..vc.name, color = discordia.Color.fromHex("#a57562").value}})
+    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** joined "..vc.name, color = botColor}})
     discordia.Clock():waitFor("",5000)
     msg:delete()
 end
@@ -25,7 +25,7 @@ _G.announceLeave = function (member, vc)
     end
 
     if member.id == client.user.id then return end
-    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** left "..vc.name, color = discordia.Color.fromHex("#a57562").value}})
+    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** left "..vc.name, color = botColor}})
     discordia.Clock():waitFor("",5000)
     msg:delete()
 end
@@ -41,7 +41,7 @@ _G.announceUpdate = function (member)
     end
 
     if member.id == client.user.id then return end
-    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."**'s voice status has been updated", color = discordia.Color.fromHex("#a57562").value}})
+    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."**'s voice status has been updated", color = botColor}})
     discordia.Clock():waitFor("",5000)
     msg:delete()
 end
