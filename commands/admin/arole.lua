@@ -1,5 +1,5 @@
 return {
-    name = "arole",
+    name = "addrole",
     description = "add a role to a member",
     hidden = false,
     command = function (message)
