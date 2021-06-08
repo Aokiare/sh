@@ -50,6 +50,18 @@ end
 function utils.isDecimal(str)
     return utils.isNumeric(str) and tonumber(str) <= 16777215
 end
+function utils.tableToString(tbl)
+    local result = ""
+    for k, v in pairs(tbl) do
+        if result == "" then
+            result = result..v
+        else
+            result = result..", "
+            result = result..v
+        end
+    end
+    return result..""
+end
 utils.timeInit = os.time()
 _G.err = { embed = {description ="<:shError:835619357249241159> nah something aint right", color = 0xEA4445}}
 return utils
