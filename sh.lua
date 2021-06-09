@@ -43,6 +43,7 @@ client:on("messageCreate", function(message)
         for key, value in pairs(aliases) do
             if command == key then
                 command = value
+                break
             end
         end
 
