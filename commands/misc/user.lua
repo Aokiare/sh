@@ -14,7 +14,17 @@ return {
             message:reply(err)
         else
             message:addReaction("✨")
-            message:reply({ embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)},thumbnail = {url = member:getAvatarURL(1024)} , color = member:getColor().value, fields = {{name = "tag", value = member.user.mentionString}, {name = "bot", value = member.user.bot}, {name = "avatar", value = "[URL]("..member:getAvatarURL(1024)..")"}, {name = "created", value = os.date("%d %B %Y, %I:%M:%S %p", member.user.createdAt)}}, footer = {text = "ID: "..member.id.." • Today at "..os.date("%I:%M %p", os.time() + 2 * 60 * 60)}}})
+            local roleString = ""
+            for role in member.roles:iter() do
+                roleString = roleString..role.mentionString.." "
+            end
+            local perms
+            if member:hasPermission("administrator") then
+                perms = "administrator"
+            else
+                perms = utils.tableToString(member:getPermissions():toArray())
+            end
+            message:reply({ embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, thumbnail = {url = member:getAvatarURL(1024)}, color = member:getColor().value, description = member.user.mentionString, fields = {{name = "joined", value = os.date("%d %b, %Y %I:%M:%S %p", discordia.Date.parseISO(member.joinedAt) + 2 * 60 * 60), inline = true}, {name = "registered", value = os.date("%d %b, %Y %I:%M:%S %p", member.user.createdAt + 2 * 60 * 60), inline = true}, {name = "bot", value = tostring(member.user.bot):lower()}, {name = "roles ["..member.roles:count().."]", value = roleString}, {name = "perms", value = perms}}, footer = {text = "ID: "..member.id}}})
         end
     end
 }
