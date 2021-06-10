@@ -8,6 +8,8 @@ return {
             member = message.guild:getMember(message.mentionedUsers.first.id)
         elseif message.guild:getMember(args) then
             member = message.guild:getMember(args)
+        elseif not args then
+            member = message.guild:getMember(message.author.id)
         end
 
         if not member then
