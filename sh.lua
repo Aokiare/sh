@@ -36,7 +36,7 @@ client:on("messageCreate", function(message)
     if message.author.bot or message.author == client.user then return end
 
     if utils.hasPrefix(message.content,prefix) then
-        local command = string.sub(message.content,#prefix+1,message.content:find("%s"))
+        local command = string.sub(message.content,#prefix+1,message.content:find("%s")):lower()
         command = command:gsub("%s+","")
         _cmd, _G.args = message.content:match("^(%S+)%s+(.+)$")
 
