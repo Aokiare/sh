@@ -2,6 +2,7 @@
 _G.discordia = require("discordia")
 _G.client = discordia.Client()
 _G.FileReader = require ("fs")
+_G.http = require('coro-http')
 discordia.extensions()
 _G.utils = require("./modules/utils")
 _G.config = require("./modules/config")
