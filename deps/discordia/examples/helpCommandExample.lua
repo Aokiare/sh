@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 local discordia = require('discordia')
 local client = discordia.Client()
 discordia.extensions() -- load all helpful extensions

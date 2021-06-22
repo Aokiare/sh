@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 --[=[
 @c Message x Snowflake
 @d Represents a text message sent in a Discord text channel. Messages can contain
@@ -55,8 +54,10 @@ end
 
 function Message:_loadMore(data)
 
+	local mentions = {}
 	if data.mentions then
 		for _, user in ipairs(data.mentions) do
+			mentions[user.id] = true
 			if user.member then
 				user.member.user = user
 				self._parent._parent._members:_insert(user.member)
@@ -66,10 +67,20 @@ function Message:_loadMore(data)
 		end
 	end
 
+	if data.referenced_message and data.referenced_message ~= null then
+		if mentions[data.referenced_message.author.id] then
+			self._reply_target = data.referenced_message.author.id
+		end
+		self._referencedMessage = self._parent._messages:_insert(data.referenced_message)
+	end
+
 	local content = data.content
 	if content then
 		if self._mentioned_users then
 			self._mentioned_users._array = parseMentions(content, '<@!?(%d+)>')
+			if self._reply_target then
+				insert(self._mentioned_users._array, 1, self._reply_target)
+			end
 		end
 		if self._mentioned_roles then
 			self._mentioned_roles._array = parseMentions(content, '<@&(%d+)>')
@@ -123,10 +134,11 @@ end
 function Message:_removeReaction(d)
 
 	local reactions = self._reactions
+	if not reactions then return nil end
 
 	local emoji = d.emoji
 	local k = emoji.id ~= null and emoji.id or emoji.name
-	local reaction = reactions:get(k)
+	local reaction = reactions:get(k) or nil
 
 	if not reaction then return nil end -- uncached reaction?
 
@@ -376,6 +388,9 @@ function get.mentionedUsers(self)
 	if not self._mentioned_users then
 		local users = self.client._users
 		local mentions = parseMentions(self._content, '<@!?(%d+)>')
+		if self._reply_target then
+			insert(mentions, 1, self._reply_target)
+		end
 		self._mentioned_users = ArrayIterable(mentions, function(id)
 			return users:get(id)
 		end)
@@ -564,6 +579,12 @@ Equivalent to `Message.guild.members:get(Message.author.id)`.]=]
 function get.member(self)
 	local guild = self.guild
 	return guild and guild._members:get(self._author._id)
+end
+
+--[=[@p referencedMessage Message/nil If available, the previous message that
+this current message references as seen in replies.]=]
+function get.referencedMessage(self)
+	return self._referencedMessage
 end
 
 --[=[@p link string URL that can be used to jump-to the message in the Discord client.]=]

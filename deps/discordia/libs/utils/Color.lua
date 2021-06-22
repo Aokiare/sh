@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 --[=[
 @c Color
 @t ui

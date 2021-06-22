@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 --[=[
 @c PermissionOverwrite x Snowflake
 @d Represents an object that is used to allow or deny specific permissions for a
