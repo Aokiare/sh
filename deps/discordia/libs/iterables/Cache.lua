@@ -1,4 +1,3 @@
----@diagnostic disable: unbalanced-assignments
 --[=[
 @c Cache x Iterable
 @mt mem
