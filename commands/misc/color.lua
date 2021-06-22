@@ -38,7 +38,8 @@ return {
         if not hex or not rgb or not decimal then
             message:reply(err)
         else
-            message:reply({embed = {fields = { {name = "Hex", value = hex}, {name = "RGB", value = rgb}, {name = "Decimal", value = decimal}},color = discordia.Color.fromHex(hex).value;}})
+            local imagecolor = hex:sub(2):lower()
+            message:reply({embed = {fields = { {name = "Hex", value = hex}, {name = "RGB", value = rgb}, {name = "Decimal", value = decimal}}, color = discordia.Color.fromHex(hex).value, thumbnail = {url = "https://dummyimage.com/200x200/"..imagecolor.."/"..imagecolor..".png"}}})
         end
     end
 }
