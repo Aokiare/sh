@@ -21,16 +21,31 @@ return {
             return
             else
                 if bot.highestRole.position < member.highestRole.position then
-                    message:reply({embed = {description ="<:shError:835619357249241159> **"..member.tag.."** has a higher role than me so i cant do that", color = discordia.Color.fromHex("#EA4445").value}})
+                    message:reply({
+                        embed = {
+                            description ="<:shError:835619357249241159> **"..member.tag.."** has a higher role than me so i cant do that",
+                            color = discordia.Color.fromHex("#EA4445").value
+                        }
+                    })
                 return
                 else
                     message:addReaction("✨")
                     if argsTable[2] then
                         member:setNickname(argsTable[2])
-                        message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> changed **"..member.tag.."** nickname to **"..argsTable[2].."**"}})
+                        message:reply({
+                            embed = {
+                                color = successColor,
+                                description = "<:shSuccess:835619376052174848> changed **"..member.tag.."** nickname to **"..argsTable[2].."**"
+                            }
+                        })
                     else
                         member:setNickname()
-                        message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> cleared **"..member.tag.."** nickname"}})
+                        message:reply({
+                            embed = {
+                                color = successColor,
+                                description = "<:shSuccess:835619376052174848> cleared **"..member.tag.."** nickname"
+                            }
+                        })
                     end
                 end
             end

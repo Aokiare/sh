@@ -22,16 +22,31 @@ return {
                     if argsTable[4] and string.trim(argsTable[4]) == "true" or string.trim(argsTable[4]) == "1" then
                         role:enableMentioning()
                     end
-                    message:reply({ embed = {description ="<:shSuccess:835619376052174848> created role **"..role.name.."**", color = discordia.Color.fromHex(string.trim(argsTable[2])).value}})
+                    message:reply({
+                        embed = {
+                            description ="<:shSuccess:835619376052174848> created role **"..role.name.."**",
+                            color = discordia.Color.fromHex(string.trim(argsTable[2])).value
+                        }
+                    })
                 end
             elseif not args then
                 message:addReaction("✨")
                 local role = server:createRole(author.name.." is fucking braindead")
-                message:reply({ embed = {description ="<:shSuccess:835619376052174848> created role **"..role.name.."**", color = successColor}})
+                message:reply({
+                    embed = {
+                        description ="<:shSuccess:835619376052174848> created role **"..role.name.."**",
+                        color = successColor
+                    }
+                })
             else
                 message:addReaction("✨")
                 local role = server:createRole(args)
-                message:reply({ embed = {description ="<:shSuccess:835619376052174848> created role **"..role.name.."**", color = successColor}})
+                message:reply({
+                    embed = {
+                        description ="<:shSuccess:835619376052174848> created role **"..role.name.."**",
+                        color = successColor
+                    }
+                })
             end
         end
     end

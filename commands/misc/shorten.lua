@@ -9,6 +9,11 @@ return {
         }
         local data = "shorten="..args
         local _res, url = http.request("POST", "https://0x0.st", headers, data)
-        message:reply({embed = {description = "<a:rosebox_hearts:842568705015021590> "..url, color = botColor}})
+        message:reply({
+            embed = {
+                description = "<a:rosebox_hearts:842568705015021590> "..url,
+                color = botColor
+            }
+        })
     end
 }

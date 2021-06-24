@@ -43,6 +43,7 @@ return {
                 footer = {
                     text = bot.tag.." is owned by "..owner.tag
                 }
-            }})
+            }
+        })
     end
 }

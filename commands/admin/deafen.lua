@@ -21,7 +21,12 @@ return {
             else
                 message:addReaction("✨")
                 member:deafen()
-                message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> deafened **"..member.tag.."**"}})
+                message:reply({
+                    embed = {
+                        color = successColor,
+                        description = "<:shSuccess:835619376052174848> deafened **"..member.tag.."**"
+                    }
+                })
             return
             end
         end

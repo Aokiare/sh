@@ -21,7 +21,12 @@ return {
             else
                 message:addReaction("✨")
                 member:setVoiceChannel()
-                message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> disconnected **"..member.tag.."**"}})
+                message:reply({
+                    embed = {
+                        color = successColor,
+                        description = "<:shSuccess:835619376052174848> disconnected **"..member.tag.."**"
+                    }
+                })
             return
             end
         end

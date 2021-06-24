@@ -10,7 +10,12 @@ return {
         else
             message:addReaction("✨")
             bot.voiceChannel.connection:pauseStream()
-            message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> stream paused"}})
+            message:reply({
+                embed = {
+                    color = successColor,
+                    description = "<:shSuccess:835619376052174848> stream paused"
+                }
+            })
         end
     end
 }
