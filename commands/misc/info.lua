@@ -18,23 +18,31 @@ return {
         uptime = uptime .. secs .. " secs "
         message:reply({
             embed = {
-                author ={
+                author = {
                     name = bot.tag,
                     icon_url = bot:getAvatarURL(1024)
                 },
-                fields ={
+                fields = {
+                    {
+                        name = "prefix",
+                        value = prefix,
+                        inline = true
+                    },
                     {
                         name = "ram usage",
                         value = (mb.."MB"),
-                        inline = false
+                        inline = true
                     },
                     {
                         name = "uptime",
                         value = uptime,
-                        inline = false
+                        inline = true
                     }
                 },
-                color = botColor -- hex color code
+                color = botColor, -- hex color code
+                footer = {
+                    text = bot.tag.." is owned by "..owner.tag
+                }
             }})
     end
 }
