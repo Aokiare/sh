@@ -31,6 +31,18 @@ return {
             end
         end
         member = msg.member
-        message:reply({embed={author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, color = member:getColor().value, description = content, footer = {text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y at %I:%M:%S%p", msg.createdAt + 2 * 60 * 60)}}})
+        message:reply({
+            embed = {
+                author = {
+                    name = member.tag,
+                    icon_url = member:getAvatarURL(1024)
+                },
+                color = member:getColor().value,
+                description = content,
+                footer = {
+                    text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y at %I:%M:%S%p", msg.createdAt + 2 * 60 * 60)
+                }
+            }
+        })
     end
 }

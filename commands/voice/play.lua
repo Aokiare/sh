@@ -29,7 +29,12 @@ return {
                 if url then
                     message:addReaction("✨")
                     print('playing', url)
-                    message:reply({embed = {color = botColor, description = "now playing "..args}})
+                    message:reply({
+                        embed = {
+                            color = botColor,
+                            description = "now playing "..args
+                        }
+                    })
                     vc.connection:playFFmpeg(url)
                 else
                     message:reply('could not fetch audio.')

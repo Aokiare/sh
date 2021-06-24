@@ -41,7 +41,12 @@ return {
             else
                 message:addReaction("✨")
                 member:addRole(role.id)
-                message:reply({ embed = {description ="<:shSuccess:835619376052174848> added **"..role.name.."** to **"..member.tag.."**", color = successColor}})
+                message:reply({
+                    embed = {
+                        description ="<:shSuccess:835619376052174848> added **"..role.name.."** to **"..member.tag.."**",
+                        color = successColor
+                    }
+                })
             end
         end
     end

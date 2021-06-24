@@ -41,7 +41,12 @@ return {
             else
                 message:addReaction("✨")
                 member:removeRole(role.id)
-                message:reply({ embed = {description ="<:shSuccess:835619376052174848> removed **"..role.name.."** from **"..member.tag.."**", color = successColor}})
+                message:reply({
+                    embed = {
+                        description ="<:shSuccess:835619376052174848> removed **"..role.name.."** from **"..member.tag.."**",
+                        color = successColor
+                    }
+                })
             end
         end
     end

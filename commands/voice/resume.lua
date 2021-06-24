@@ -10,7 +10,12 @@ return {
         else
             message:addReaction("✨")
             bot.voiceChannel.connection:resumeStream()
-            message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> stream resumed"}})
+            message:reply({
+                embed = {
+                    color = successColor,
+                    description = "<:shSuccess:835619376052174848> stream resumed"
+                }
+            })
         end
     end
 }

@@ -39,7 +39,46 @@ return {
                 embedColor = member:getColor().value
             end
             message:reply(member.roles.first)
-            message:reply({ embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, thumbnail = {url = member:getAvatarURL(1024)}, color = embedColor, description = member.user.mentionString, fields = {{name = "joined", value = os.date("%d %b, %Y %I:%M:%S %p", discordia.Date.parseISO(member.joinedAt) + 2 * 60 * 60), inline = true}, {name = "registered", value = os.date("%d %b, %Y %I:%M:%S %p", member.user.createdAt + 2 * 60 * 60), inline = true}, {name = "bot", value = tostring(member.user.bot):lower()}, {name = "roles ["..roleCount.."]", value = roleString}, {name = "perms", value = perms}}, footer = {text = "ID: "..member.id}}})
+            message:reply({
+                embed = {
+                    author = {
+                        name = member.tag,
+                        icon_url = member:getAvatarURL(1024)
+                    },
+                    thumbnail = {
+                        url = member:getAvatarURL(1024)
+                    },
+                    color = embedColor,
+                    description = member.user.mentionString,
+                    fields = {
+                        {
+                            name = "joined",
+                            value = os.date("%d %b, %Y %I:%M:%S %p", discordia.Date.parseISO(member.joinedAt) + 2 * 60 * 60),
+                            inline = true
+                        },
+                        {
+                            name = "registered",
+                            value = os.date("%d %b, %Y %I:%M:%S %p", member.user.createdAt + 2 * 60 * 60),
+                            inline = true
+                        },
+                        {
+                            name = "bot",
+                            value = tostring(member.user.bot):lower()
+                        },
+                        {
+                            name = "roles ["..roleCount.."]",
+                            value = roleString
+                        },
+                        {
+                            name = "perms",
+                            value = perms
+                        }
+                    },
+                    footer = {
+                        text = "ID: "..member.id
+                    }
+                }
+            })
         end
     end
 }

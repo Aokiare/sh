@@ -30,7 +30,12 @@ return {
             else
                 message:addReaction("✨")
                 member:setVoiceChannel(vc.id)
-                message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> moved **"..member.tag.."** to "..vc.name}})
+                message:reply({
+                    embed = {
+                        color = successColor,
+                        description = "<:shSuccess:835619376052174848> moved **"..member.tag.."** to "..vc.name
+                    }
+                })
             return
             end
         end

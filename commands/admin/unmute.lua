@@ -21,7 +21,12 @@ return {
             else
                 message:addReaction("✨")
                 member:unmute()
-                message:reply({embed = {color = successColor, description = "<:shSuccess:835619376052174848> unmuted **"..member.tag.."**"}})
+                message:reply({
+                    embed = {
+                        color = successColor,
+                        description = "<:shSuccess:835619376052174848> unmuted **"..member.tag.."**"
+                    }
+                })
             return
             end
         end
