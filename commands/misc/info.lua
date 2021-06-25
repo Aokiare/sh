@@ -26,17 +26,17 @@ return {
                     {
                         name = "prefix",
                         value = prefix,
-                        inline = true
+                        inline = false
                     },
                     {
-                        name = "ram usage",
+                        name = "ram",
                         value = (mb.."MB"),
-                        inline = true
+                        inline = false
                     },
                     {
                         name = "uptime",
                         value = uptime,
-                        inline = true
+                        inline = false
                     }
                 },
                 color = botColor, -- hex color code
