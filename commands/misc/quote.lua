@@ -10,21 +10,23 @@ return {
             content = msg.content
             channel = msg.guild:getChannel(msg.channel.id)
         else
-            for txtchnl in message.guild.textChannels:iter() do
-                if txtchnl:getMessage(args) then
-                    msg = txtchnl:getMessage(args)
-                    content = msg.content
-                    channel = txtchnl
-                break
-                end
-            end
-            if not msg then
+            if not tonumber(args) then
                 if args then
                     msg = message
                     message:delete()
                     content = msg.content:gsub("%"..prefix.."quote ","")
                     channel = msg.guild:getChannel(msg.channel.id)
-                else
+                end
+            else
+                for txtchnl in message.guild.textChannels:iter() do
+                    if txtchnl:getMessage(args) then
+                        msg = txtchnl:getMessage(args)
+                        content = msg.content
+                        channel = txtchnl
+                    break
+                    end
+                end
+                if not msg then
                     message:reply(err)
                 return
                 end
@@ -40,7 +42,7 @@ return {
                 color = member:getColor().value,
                 description = content,
                 footer = {
-                    text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y at %I:%M:%S%p", msg.createdAt)
+                    text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y at %I:%M:%S%p", msg.createdAt + 2 * 60 * 60)
                 }
             }
         })
