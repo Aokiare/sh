@@ -32,6 +32,7 @@ commands["leave"] = require ("./owner/leave")
 commands["say"] = require ("./owner/say")
 commands["setstatus"] = require ("./owner/setstatus")
 commands["setgame"] = require ("./owner/setgame")
+commands["eval"] = require ("./owner/eval")
 
 commands["help"] =
 {
