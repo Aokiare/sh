@@ -3,17 +3,31 @@ return {
     description = "shorten a link",
     hidden = false,
     command = function (message)
-        local headers = {
-            {"Content-Type", "application/x-www-form-urlencoded"},
-            {"Accept", "application/json"}
-        }
-        local data = "shorten="..args
-        local _res, url = http.request("POST", "https://0x0.st", headers, data)
-        message:reply({
-            embed = {
-                description = "<a:rosebox_hearts:842568705015021590> "..url,
-                color = botColor
+        if not args then
+            message:reply(err)
+        else
+            local headers = {
+                {"Content-Type", "application/x-www-form-urlencoded"},
+                {"Accept", "application/json"}
             }
-        })
+            local data = "shorten="..args
+            local res, url = http.request("POST", "https://0x0.st", headers, data)
+            if res["code"] == 400 then
+                message:reply({ embed = {
+                    color = 0xEA4445,
+                    description = "<:shError:835619357249241159> 400 BAD REQUEST"
+                }})
+            elseif res["code"] == 200 then
+                message:addReaction("✨")
+                message:reply({
+                    embed = {
+                        description = "<a:rosebox_hearts:842568705015021590> "..url,
+                        color = botColor
+                    }
+                })
+            else
+                message:reply(err)
+            end
+        end
     end
 }
