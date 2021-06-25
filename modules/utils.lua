@@ -62,6 +62,28 @@ function utils.tableToString(tbl)
     end
     return result..""
 end
+function utils.luaCode(str)
+    return string.format('```lua\n%s```', str)
+end
+function utils.code(str)
+    return string.format('```\n%s```', str)
+end
+function utils.printLine(...)
+    local ret = {}
+    for i = 1, select('#', ...) do
+        local arg = tostring(select(i, ...))
+        table.insert(ret, arg)
+    end
+    return table.concat(ret, '\t')
+end
+function utils.prettyLine(...)
+    local ret = {}
+    for i = 1, select('#', ...) do
+        local arg = pp.strip(pp.dump(select(i, ...)))
+        table.insert(ret, arg)
+    end
+    return table.concat(ret, '\t')
+end
 utils.timeInit = os.time()
 _G.err = { embed = {description ="<:shError:835619357249241159> nah something aint right", color = 0xEA4445}}
 return utils
