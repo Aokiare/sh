@@ -38,7 +38,7 @@ return {
                 message.guild:kickUser(args)
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> successfully kicked **"..args.tag.."**",
+                        description ="<:shSuccess:835619376052174848> successfully kicked **"..args.mentionString.."**",
                         color = successColor
                     }
                 })

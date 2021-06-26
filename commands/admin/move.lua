@@ -33,7 +33,7 @@ return {
                 message:reply({
                     embed = {
                         color = successColor,
-                        description = "<:shSuccess:835619376052174848> moved **"..member.tag.."** to "..vc.name
+                        description = "<:shSuccess:835619376052174848> moved **"..member.mentionString.."** to "..vc.mentionString
                     }
                 })
             return

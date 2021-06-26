@@ -16,7 +16,7 @@ return {
                 if not message.guild:getBan(user.id) then
                     message:reply({
                         embed = {
-                            description ="<:shError:835619357249241159> **"..user.tag.."** isnt banned",
+                            description ="<:shError:835619357249241159> **"..user.mentionString.."** isnt banned",
                             color = discordia.Color.fromHex("#EA4445").value
                         }
                     })
@@ -27,7 +27,7 @@ return {
                     message:reply({
                         embed = {
                             color = successColor,
-                            description = "<:shSuccess:835619376052174848> unbanned **"..user.tag.."**"
+                            description = "<:shSuccess:835619376052174848> unbanned **"..user.mentionString.."**"
                         }
                     })
                 end
