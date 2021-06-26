@@ -10,6 +10,35 @@ return {
             member = message.guild:getMember(args)
         elseif not args then
             member = message.guild:getMember(message.author.id)
+        elseif client:getUser(args) then
+            local user = client:getUser(args)
+            message:reply({
+                embed = {
+                    author = {
+                        name = user.tag,
+                        icon_url = user:getAvatarURL(1024)
+                    },
+                    thumbnail = {
+                        url = user:getAvatarURL(1024)
+                    },
+                    color = botColor,
+                    description = user.mentionString,
+                    fields = {
+                        {
+                            name = "registered",
+                            value = os.date("%d %b, %Y %I:%M:%S %p", user.createdAt + 2 * 60 * 60),
+                            inline = false
+                        },
+                        {
+                            name = "bot", value = tostring(user.bot):lower()
+                        }
+                    },
+                    footer = {
+                        text = "ID: "..user.id
+                    }
+                }
+            })
+        return
         end
 
         if not member then
@@ -38,7 +67,6 @@ return {
             else
                 embedColor = member:getColor().value
             end
-            message:reply(member.roles.first)
             message:reply({
                 embed = {
                     author = {
