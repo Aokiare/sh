@@ -4,8 +4,22 @@ return {
     hidden = true,
     command = function (message)
         if message.author ~= owner then message:addReaction("🤡") return end
-        message:addReaction("✨")
-        message:reply("aight im headin out")
-        message.guild:leave()
+        message:reply("u sure?")
+        local res = client:waitFor("messageCreate", 20000, function(msg)
+            if msg.author == owner then
+                if msg.content:lower() == "yes" or msg.content:lower() == "y" then
+                    return true
+                else
+                    return false
+                end
+            end
+        end)
+        if res == true then
+            message:addReaction("✨")
+            message:reply("aight im headin out")
+            message.guild:leave()
+        else
+            message:reply("nvm")
+        end
     end
 }
