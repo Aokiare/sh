@@ -35,7 +35,7 @@ return {
                         title =  "lain",
                         color = botColor,
                         description = "<a:standing:794754758694141953> playing **"..stream..[[**
-<a:letsalllovelain:801056234823745537> requested by **]]..author.tag.."**",
+<a:letsalllovelain:801056234823745537> requested by **]]..author.mentionString.."**",
                         thumbnail = {
                             url = "https://i.imgur.com/GRN5n7V.gif"
                         }
