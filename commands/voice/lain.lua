@@ -16,33 +16,31 @@ return {
             vc = author.voiceChannel
             vc:join()
         end
-        if not vc then
-            message:reply(err)
-        else
-            local stream
-            if not args then -- if no args play everything playlist
-                stream = "everything"
-            elseif args == "cafe" or args == "cyberia" or args == "swing" then -- play playlist if it exists
-                stream = args
-            else -- if args are something else just play everything playlist
-                stream = "everything"
-            end
-            if vc.connection then
-                vc.connection:stopStream()
-                message:addReaction("✨")
-                message:reply({
-                    embed = {
-                        title =  "lain",
-                        color = botColor,
-                        description = "<a:standing:794754758694141953> playing **"..stream..[[**
+        if not vc then return message:reply(err) end
+        message:reply(err)
+        local stream
+        if not args then -- if no args play everything playlist
+            stream = "everything"
+        elseif args == "cafe" or args == "cyberia" or args == "swing" then -- play playlist if it exists
+            stream = args
+        else -- if args are something else just play everything playlist
+            stream = "everything"
+        end
+        if vc.connection then
+            vc.connection:stopStream()
+            message:addReaction("✨")
+            message:reply({
+                embed = {
+                    title =  "lain",
+                    color = botColor,
+                    description = "<a:standing:794754758694141953> playing **"..stream..[[**
 <a:letsalllovelain:801056234823745537> requested by **]]..author.mentionString.."**",
-                        thumbnail = {
-                            url = "https://i.imgur.com/GRN5n7V.gif"
-                        }
+                    thumbnail = {
+                        url = "https://i.imgur.com/GRN5n7V.gif"
                     }
-                })
-                vc.connection:playFFmpeg("http://lainon.life:8000/"..stream..".mp3")
-            end
+                }
+            })
+            vc.connection:playFFmpeg("http://lainon.life:8000/"..stream..".mp3")
         end
     end
 }

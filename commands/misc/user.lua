@@ -41,72 +41,66 @@ return {
         return
         end
 
-        if not member then
-            message:reply(err)
+        if not member then return message:reply(err) end
+        message:addReaction("✨")
+        local roleString, roleCount = ""
+        if not member.roles.first then
+            roleString = "none"
+            roleCount = "0"
         else
-            message:addReaction("✨")
-            local roleString, roleCount = ""
-            if not member.roles.first then
-                roleString = "none"
-                roleCount = "0"
-            else
-                for role in member.roles:iter() do
-                    roleString = roleString..role.mentionString.." "
-                end
-                roleCount = member.roles:count()
+            for role in member.roles:iter() do
+                roleString = roleString..role.mentionString.." "
             end
-            local perms
-            if member:hasPermission("administrator") then
-                perms = "administrator"
-            else
-                perms = utils.tableToString(member:getPermissions():toArray())
-            end
-            local embedColor
-            if member:getColor().value == 0 then
-                embedColor = botColor
-            else
-                embedColor = member:getColor().value
-            end
-            message:reply({
-                embed = {
-                    author = {
-                        name = member.tag,
-                        icon_url = member:getAvatarURL(1024)
-                    },
-                    thumbnail = {
-                        url = member:getAvatarURL(1024)
-                    },
-                    color = embedColor,
-                    description = member.user.mentionString,
-                    fields = {
-                        {
-                            name = "joined",
-                            value = os.date("%d %b, %Y %I:%M:%S %p", discordia.Date.parseISO(member.joinedAt) + 2 * 60 * 60),
-                            inline = true
-                        },
-                        {
-                            name = "registered",
-                            value = os.date("%d %b, %Y %I:%M:%S %p", member.user.createdAt + 2 * 60 * 60),
-                            inline = true
-                        },
-                        {
-                            name = "bot",
-                            value = tostring(member.user.bot):lower()
-                        },
-                        {
-                            name = "roles ["..roleCount.."]",
-                            value = roleString
-                        },
-                        {
-                            name = "perms",
-                            value = perms
-                        }
-                    },
-                    footer = {
-                        text = "ID: "..member.id
-                    }
-                }
-            })
+            roleCount = member.roles:count()
         end
+        local perms
+        if member:hasPermission("administrator") then
+            perms = "administrator"
+        else
+            perms = utils.tableToString(member:getPermissions():toArray())
+        end
+        local embedColor
+        if member:getColor().value == 0 then
+            embedColor = botColor
+        else
+            embedColor = member:getColor().value
+        end
+        message:reply({
+            embed = {
+                author = {
+                    name = member.tag,
+                    icon_url = member:getAvatarURL(1024)
+                },
+                thumbnail = {
+                    url = member:getAvatarURL(1024)
+                },
+                color = embedColor,
+                description = member.user.mentionString,
+                fields = {
+                    {
+                        name = "joined",
+                        value = os.date("%d %b, %Y %I:%M:%S %p", discordia.Date.parseISO(member.joinedAt) + 2 * 60 * 60),
+                        inline = true
+                    },
+                    {
+                        name = "registered",
+                        value = os.date("%d %b, %Y %I:%M:%S %p", member.user.createdAt + 2 * 60 * 60),
+                        inline = true
+                    },
+                    {
+                        name = "bot", value = tostring(member.user.bot):lower()
+                    },
+                    {
+                        name = "roles ["..roleCount.."]", value = roleString
+                    },
+                    {
+                        name = "perms", value = perms
+                    }
+                },
+                footer = {
+                    text = "ID: "..member.id
+                }
+            }
+        })
     end
 }
