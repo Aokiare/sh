@@ -1,3 +1,4 @@
+---@diagnostic disable: unbalanced-assignments
 return {
     name = "user",
     description = "reutrn information about a user",
