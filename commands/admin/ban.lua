@@ -38,7 +38,7 @@ return {
                 message.guild:banUser(args)
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> successfully banned **"..args.tag.."**",
+                        description ="<:shSuccess:835619376052174848> successfully banned **"..args.mentionString.."**",
                         color = successColor
                     }
                 })

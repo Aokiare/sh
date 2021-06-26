@@ -24,7 +24,7 @@ return {
                 message:reply({
                     embed = {
                         color = successColor,
-                        description = "<:shSuccess:835619376052174848> deafened **"..member.tag.."**"
+                        description = "<:shSuccess:835619376052174848> deafened **"..member.mentionString.."**"
                     }
                 })
             return

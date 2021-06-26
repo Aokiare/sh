@@ -43,7 +43,7 @@ return {
                 member:removeRole(role.id)
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> removed **"..role.name.."** from **"..member.tag.."**",
+                        description ="<:shSuccess:835619376052174848> removed **"..role.mentionString.."** from **"..member.mentionString.."**",
                         color = successColor
                     }
                 })

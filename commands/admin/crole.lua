@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 return {
     name = "crole",
     description = "create a role",
@@ -16,15 +17,19 @@ return {
                     if string.trim(argsTable[2]) and utils.isHex(string.trim(argsTable[2])) then
                         role:setColor(discordia.Color.fromHex(string.trim(argsTable[2])))
                     end
-                    if argsTable[3] and string.trim(argsTable[3]) == "true" or string.trim(argsTable[3]) == "1" then
-                        role:hoist()
+                    if argsTable[3] then
+                        if string.trim(argsTable[3]) == "true" or string.trim(argsTable[3]) == "1" then
+                            role:hoist()
+                        end
                     end
-                    if argsTable[4] and string.trim(argsTable[4]) == "true" or string.trim(argsTable[4]) == "1" then
-                        role:enableMentioning()
+                    if argsTable[4] then
+                        if string.trim(argsTable[4]) == "true" or string.trim(argsTable[4]) == "1" then
+                            role:enableMentioning()
+                        end
                     end
                     message:reply({
                         embed = {
-                            description ="<:shSuccess:835619376052174848> created role **"..role.name.."**",
+                            description ="<:shSuccess:835619376052174848> created role **"..role.mentionString.."**",
                             color = discordia.Color.fromHex(string.trim(argsTable[2])).value
                         }
                     })
@@ -34,7 +39,7 @@ return {
                 local role = server:createRole(author.name.." is fucking braindead")
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> created role **"..role.name.."**",
+                        description ="<:shSuccess:835619376052174848> created role **"..role.mentionString.."**",
                         color = successColor
                     }
                 })
@@ -43,7 +48,7 @@ return {
                 local role = server:createRole(args)
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> created role **"..role.name.."**",
+                        description ="<:shSuccess:835619376052174848> created role **"..role.mentionString.."**",
                         color = successColor
                     }
                 })
