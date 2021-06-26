@@ -26,10 +26,7 @@ return {
                     break
                     end
                 end
-                if not msg then
-                    message:reply(err)
-                return
-                end
+                if not msg then return message:reply(err) end
             end
         end
         member = msg.member

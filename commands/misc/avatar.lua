@@ -22,21 +22,18 @@ return {
             avatar = member:getAvatarURL(1024)
             color = botColor
         end
-        if not avatar or not member or not color then
-            message:reply(err)
-        else
-            message:reply({
-                embed = {
-                    author = {
-                        name = member.tag,
-                        icon_url = avatar
-                    },
-                    image = {
-                        url = avatar
-                    },
-                    color = color;
-                }
-            })
-        end
+        if not avatar or not member or not color then return message:reply(err) end
+        message:reply({
+            embed = {
+                author = {
+                    name = member.tag,
+                    icon_url = avatar
+                },
+                image = {
+                    url = avatar
+                },
+                color = color;
+            }
+        })
     end
 }
