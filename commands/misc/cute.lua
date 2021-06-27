@@ -7,7 +7,7 @@ return {
 
         local function getBoard()
             local boards = {"c", "cm"}
-            return boards[math.random(1,2)]
+            return boards[math.random(1,#boards)]
         end
 
         local targetBoard = getBoard()
