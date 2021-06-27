@@ -1,9 +1,10 @@
 ---@diagnostic disable: undefined-field
 _G.discordia = require("discordia")
 _G.client = discordia.Client()
-_G.FileReader = require ("fs")
-_G.http = require('coro-http')
-_G.pp = require('pretty-print')
+_G.FileReader = require("fs")
+_G.http = require("coro-http")
+_G.json = require("json")
+_G.pp = require("pretty-print")
 discordia.extensions()
 _G.utils = require("./modules/utils")
 _G.config = require("./modules/config")
