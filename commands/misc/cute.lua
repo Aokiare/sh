@@ -1,5 +1,5 @@
 return {
-    name = "cutie",
+    name = "cute",
     description = "get an image from a cute board",
     hidden = false,
     command = function (message)
@@ -26,7 +26,8 @@ return {
             tonumber(parsedData["posts"][postNumber]["tim"]), -- image name
             parsedData["posts"][postNumber]["ext"], -- image extension
             parsedData["posts"][postNumber]["no"], -- post number
-            parsedData["posts"][postNumber]["time"] -- post time
+            parsedData["posts"][postNumber]["time"], -- post time
+            parsedData["posts"][postNumber]["filename"] -- image filename
             }
         end
 
@@ -44,6 +45,7 @@ return {
                     url = imageUrl
                 },
                 title = "No."..wallpaperData[3],
+                description = wallpaperData[5]..wallpaperData[2],
                 author = {
                     name = "/"..targetBoard.."/",
                     icon_url = "https://i.imgur.com/XcCKhYj.png"
