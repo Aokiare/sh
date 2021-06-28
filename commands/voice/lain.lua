@@ -17,7 +17,6 @@ return {
             vc:join()
         end
         if not vc then return message:reply(err) end
-        message:reply(err)
         local stream
         if not args then -- if no args play everything playlist
             stream = "everything"
@@ -31,13 +30,13 @@ return {
             message:addReaction("✨")
             message:reply({
                 embed = {
-                    title =  "lain",
+                    author = {
+                        name = "lain",
+                        icon_url = "https://i.imgur.com/5DC7h3C.png"
+                    },
+                    title = stream,
                     color = botColor,
-                    description = "<a:standing:794754758694141953> playing **"..stream..[[**
-<a:letsalllovelain:801056234823745537> requested by **]]..author.mentionString.."**",
-                    thumbnail = {
-                        url = "https://i.imgur.com/GRN5n7V.gif"
-                    }
+                    description = "requested by "..author.mentionString,
                 }
             })
             vc.connection:playFFmpeg("http://lainon.life:8000/"..stream..".mp3")
