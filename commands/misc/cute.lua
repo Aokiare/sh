@@ -31,11 +31,14 @@ return {
             }
         end
 
-        local wallpaperData = getReplyImage(getThread())
+        local threadNumber = getThread()
+        local wallpaperData = getReplyImage(threadNumber)
 
         while not wallpaperData[1] do
-            wallpaperData = getReplyImage(getThread())
+            threadNumber = getThread()
+            wallpaperData = getReplyImage(threadNumber)
         end
+
 
         message:reply({
             embed = {
@@ -47,7 +50,8 @@ return {
                 description = wallpaperData[5]..wallpaperData[2],
                 author = {
                     name = "/"..targetBoard.."/",
-                    icon_url = "https://i.imgur.com/XcCKhYj.png"
+                    icon_url = "https://i.imgur.com/XcCKhYj.png",
+                    url = "https://boards.4channel.org/"..targetBoard.."/thread/"..threadNumber.."#p"..wallpaperData[3]
                 },
                 footer = {
                     text = wallpaperData[1].." • "..os.date("%d %b %Y %I:%M:%S %p" ,wallpaperData[4])

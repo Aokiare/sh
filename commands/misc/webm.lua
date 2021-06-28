@@ -26,10 +26,12 @@ return {
             }
         end
 
-        local webmData = getReplyWebm(getThread())
+        local threadNumber = getThread()
+        local webmData = getReplyWebm(threadNumber)
 
         while not webmData[1] or webmData[2] ~= ".webm" do
-            webmData = getReplyWebm(getThread())
+            threadNumber = getThread()
+            webmData = getReplyWebm(threadNumber)
         end
 
         message:reply("https://i.4cdn.org/"..targetBoard.."/"..webmData[1]..webmData[2])
@@ -40,7 +42,8 @@ return {
                 description = webmData[5]..webmData[2],
                 author = {
                     name = "/"..targetBoard.."/",
-                    icon_url = "https://i.imgur.com/XcCKhYj.png"
+                    icon_url = "https://i.imgur.com/XcCKhYj.png",
+                    url = "https://boards.4channel.org/"..targetBoard.."/thread/"..threadNumber.."#p"..webmData[3]
                 },
                 footer = {
                     text = webmData[1].." • "..os.date("%d %b %Y %I:%M:%S %p" ,webmData[4])
