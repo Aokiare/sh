@@ -39,7 +39,9 @@ return {
             wallpaperData = getReplyImage(threadNumber)
         end
 
-
+        if wallpaperData[2] == ".webm" then
+            message:reply("https://i.4cdn.org/"..targetBoard.."/"..wallpaperData[1]..wallpaperData[2])
+        end
         message:reply({
             embed = {
                 color = botColor,
