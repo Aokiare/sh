@@ -15,6 +15,10 @@ return {
                 role = message.mentionedRoles.first
             elseif message.guild:getRole(args) then
                 role = message.guild:getRole(args)
+            else
+                role = message.guild.roles:find(function(r)
+                    return r.name == args
+                end)
             end
 
             if not role then

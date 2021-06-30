@@ -8,6 +8,10 @@ return {
             role = message.mentionedRoles.first
         elseif message.guild:getRole(args) then
             role = message.guild:getRole(args)
+        elseif args then
+            role = message.guild.roles:find(function(r)
+                return r.name == args
+            end)
         end
         if not role then return message:reply(err) end
         message:addReaction("✨")
