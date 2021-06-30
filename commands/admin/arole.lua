@@ -19,6 +19,10 @@ return {
                     role = message.guild:getRole(message.mentionedRoles.first.id)
                 elseif message.guild:getRole(argsTable[2]) then -- if mentions a member and uses role id
                     role = message.guild:getRole(argsTable[2])
+                else
+                    role = message.guild.roles:find(function(r)
+                        return r.name == args
+                    end)
                 end
             elseif message.guild:getMember(argsTable[1]) then -- if uses user id
                 member = message.guild:getMember(argsTable[1])
@@ -26,14 +30,21 @@ return {
                     role = message.guild:getRole(message.mentionedRoles.first.id)
                 elseif message.guild:getRole(argsTable[2]) then -- if uses user id and role id
                     role = message.guild:getRole(argsTable[2])
+                else
+                    role = message.guild.roles:find(function(r)
+                        return r.name == args
+                    end)
                 end
             elseif not message.mentionedUsers.first and not message.guild:getMember(argsTable[1]) then
+                member = author
                 if message.mentionedRoles.first then
-                    member = author
                     role = message.guild:getRole(message.mentionedRoles.first.id)
                 elseif message.guild:getRole(argsTable[1]) then
-                    member = author
                     role = message.guild:getRole(argsTable[1])
+                else
+                    role = message.guild.roles:find(function(r)
+                        return r.name == args
+                    end)
                 end
             end
             if not member or not role then
