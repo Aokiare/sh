@@ -8,6 +8,8 @@ return {
         if message.author ~= owner then return end
         if not args then return message:reply(err) end
 
+        args = args:gsub('```\n?', '')
+
         local lines = {}
 
         sandbox.message = message
