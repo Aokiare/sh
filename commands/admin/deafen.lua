@@ -1,3 +1,5 @@
+-- Licensed under the Open Software License version 3.0
+
 return {
 	name = "deafen",
     description = "deafen someone in vc",

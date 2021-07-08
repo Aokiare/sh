@@ -1,3 +1,5 @@
+-- Licensed under the Open Software License version 3.0
+
 return {
     name = "setstatus",
     description = "set the status of the bot",

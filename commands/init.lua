@@ -1,3 +1,5 @@
+-- Licensed under the Open Software License version 3.0
+
 local commands = {}
 commands["ban"] = require("./admin/ban")
 commands["unban"] = require("./admin/unban")

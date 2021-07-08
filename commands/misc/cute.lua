@@ -1,3 +1,5 @@
+-- Licensed under the Open Software License version 3.0
+
 return {
     name = "cute",
     description = "get an image from a cute board",

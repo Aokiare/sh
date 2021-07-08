@@ -1,3 +1,5 @@
+-- Licensed under the Open Software License version 3.0
+
 return {
     name = "time",
     description = "returns time in the right timezone",

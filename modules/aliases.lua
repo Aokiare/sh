@@ -1,3 +1,5 @@
+-- Licensed under the Open Software License version 3.0
+
 _G.aliases = {}
 aliases["cl"] = "clear"
 aliases["prune"] = "clear"

@@ -1,3 +1,5 @@
+-- Licensed under the Open Software License version 3.0
+
 local utils = {}
 function utils.getStream(url)
     local child = spawn('youtube-dl', {
