@@ -1,3 +1,5 @@
+-- Licensed under the Open Software License version 3.0
+
 ---@diagnostic disable: undefined-field
 _G.discordia = require("discordia")
 _G.client = discordia.Client()

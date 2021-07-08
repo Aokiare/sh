@@ -1,3 +1,5 @@
+-- Licensed under the Open Software License version 3.0
+
 return {
     name = 	"avatar",
 	description = "return the avatar of a user",
