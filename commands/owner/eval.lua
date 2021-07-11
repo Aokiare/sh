@@ -10,7 +10,7 @@ return {
         if message.author ~= owner then return end
         if not args then return message:reply(err) end
 
-        args = args:gsub('```\n?', '')
+        args = args:gsub('```lua\n?', ''):gsub('```\n?', '')
 
         local lines = {}
 
