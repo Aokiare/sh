@@ -43,7 +43,7 @@ client:on("messageCreate", function(message)
     if utils.hasPrefix(message.content,prefix) then
         local command = string.sub(message.content,#prefix+1,message.content:find("%s")):lower()
         command = command:gsub("%s+","")
-        _cmd, _G.args = message.content:match("^(%S+)%s+(.+)$")
+        _, _G.args = message.content:match("^(%S+)%s+(.+)$")
 
         for key, value in pairs(aliases) do
             if command == key then

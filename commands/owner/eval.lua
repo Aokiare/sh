@@ -8,9 +8,10 @@ return {
         local sandbox = setmetatable({ }, { __index = _G })
 
         if message.author ~= owner then return end
-        if not args then return message:reply(err) end
+        local _, evalCommand = message.content:match("^(%S+)%s+(.+)$")
+        if not evalCommand then return message:reply(err) end
 
-        args = args:gsub('```lua\n?', ''):gsub('```\n?', '')
+        evalCommand = evalCommand:gsub('```lua\n?', ''):gsub('```\n?', '')
 
         local lines = {}
 
@@ -22,20 +23,20 @@ return {
             table.insert(lines, utils.prettyLine(...))
         end
 
-        local fn, synErr = load(args, "DiscordBot", "t", sandbox)
+        local fn, synErr = load(evalCommand, "cutebot", "t", sandbox)
         if not fn then return message:reply({
             embed = {
                 fields = {
                     {
                         name = "input",
-                        value = utils.luaCode(args)
+                        value = utils.luaCode(evalCommand)
                     },
                     {
                         name = "output",
                         value = utils.code(synErr)
                     }
                 },
-                color = 0xa57562
+                color = botColor
             }
         })
         end
@@ -46,14 +47,14 @@ return {
                 fields = {
                     {
                         name = "input",
-                        value = utils.luaCode(args)
+                        value = utils.luaCode(evalCommand)
                     },
                     {
                         name = "output",
                         value = utils.code(runErr)
                     }
                 },
-                color = 0xa57562
+                color = botColor
             }
         })
         end
@@ -69,14 +70,14 @@ return {
                 fields = {
                     {
                         name = "input",
-                        value = utils.luaCode(args)
+                        value = utils.luaCode(evalCommand)
                     },
                     {
                         name = "output",
                         value = utils.code(lines)
                     }
                 },
-                color = 0xa57562
+                color = botColor
             }
         })
         end
