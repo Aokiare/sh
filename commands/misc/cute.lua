@@ -12,7 +12,14 @@ return {
             return boards[math.random(1,#boards)]
         end
 
-        local targetBoard = getBoard()
+        local targetBoard
+        if args == "cm" then
+            targetBoard = "cm"
+        elseif args == "c" then
+            targetBoard = "c"
+        else
+            targetBoard = getBoard()
+        end
 
         local function getThread()
             local _res, data = http.request("GET", "https://a.4cdn.org/"..targetBoard.."/catalog.json")
