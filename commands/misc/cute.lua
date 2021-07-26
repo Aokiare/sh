@@ -22,13 +22,13 @@ return {
         end
 
         local function getThread()
-            local _res, data = http.request("GET", "https://a.4cdn.org/"..targetBoard.."/catalog.json")
+            local _, data = http.request("GET", "https://a.4cdn.org/"..targetBoard.."/catalog.json")
             local parsedData = json.decode(data)
             return tonumber(parsedData[math.random(1, 10)]["threads"][math.random(1, 15)]["no"])
         end
 
         local function getReplyImage(threadNumber)
-            local _res, data = http.request("GET", "https://a.4cdn.org/"..targetBoard.."/thread/"..threadNumber..".json")
+            local _, data = http.request("GET", "https://a.4cdn.org/"..targetBoard.."/thread/"..threadNumber..".json")
             local parsedData = json.decode(data)
             local postNumber = math.random(1, #parsedData["posts"])
             return {
