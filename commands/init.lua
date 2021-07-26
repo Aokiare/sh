@@ -59,7 +59,7 @@ commands["help"] =
             },
             description = mess,
             color = botColor,
-            footer = {text = bot.name.." is owned by "..owner.tag.." • Today at "..os.date("%I:%M %p", os.time())}
+            footer = {text = bot.name.." is owned by "..owner.tag.." • Today at "..os.date("%I:%M %p", os.time() + 2 * 60 * 60)}
         }})
 	end
 }
