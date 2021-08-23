@@ -55,7 +55,7 @@ return {
             message:reply({
                 embed = {
                     color = successColor,
-                    description = successEmote.." domain **"..domainName.."** is available for $"..domainPrice.."!"
+                    description = successEmote.." domain **"..domainName.."** is available for **$"..domainPrice.."**!"
                 }
             })
         end
