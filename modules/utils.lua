@@ -67,6 +67,9 @@ end
 function utils.luaCode(str)
     return string.format('```lua\n%s```', str)
 end
+function utils.shellCode(str)
+    return string.format('```sh\n%s```', str)
+end
 function utils.code(str)
     return string.format('```\n%s```', str)
 end
