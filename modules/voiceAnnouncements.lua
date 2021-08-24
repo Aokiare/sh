@@ -1,5 +1,17 @@
 -- Licensed under the Open Software License version 3.0
 
+client:on("voiceChannelJoin", function(member, vc)
+    announceJoin(member, vc)
+end)
+
+client:on("voiceChannelLeave", function(member, vc)
+    announceLeave(member, vc)
+end)
+
+client:on("voiceUpdate", function(member)
+    announceUpdate(member)
+end)
+
 _G.announceJoin = function (member, vc)
     local guild = member.parent
     local channel
