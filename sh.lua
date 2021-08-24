@@ -1,13 +1,11 @@
 -- Licensed under the Open Software License version 3.0
 
----@diagnostic disable: undefined-field
 _G.discordia = require("discordia")
 _G.client = discordia.Client()
 _G.FileReader = require("fs")
 _G.http = require("coro-http")
 _G.json = require("json")
 _G.pp = require("pretty-print")
-discordia.extensions()
 _G.utils = require("./modules/utils")
 _G.config = require("./modules/config")
 _G.alias = require("./modules/aliases")
@@ -16,6 +14,7 @@ _G.voiceAnnouncements = require("./modules/voiceAnnouncements")
 _G.commands = require("./commands")
 _G.spawn = require("coro-spawn")
 _G.parse = require("url").parse
+discordia.extensions()
 
 client:on("ready", function()
     client:setStatus("dnd")
@@ -23,18 +22,6 @@ client:on("ready", function()
     _G.bot = client:getUser(client.user.id)
     _G.owner = client:getUser(client.owner.id)
     collectgarbage("collect")
-end)
-
-client:on("voiceChannelJoin", function(member, vc)
-    announceJoin(member, vc)
-end)
-
-client:on("voiceChannelLeave", function(member, vc)
-    announceLeave(member, vc)
-end)
-
-client:on("voiceUpdate", function(member)
-    announceUpdate(member)
 end)
 
 client:on("messageCreate", function(message)
