@@ -74,7 +74,7 @@ return {
                     },
                     {
                         name = "output",
-                        value = utils.code(lines)
+                        value = utils.shellCode(lines)
                     }
                 },
                 color = botColor
