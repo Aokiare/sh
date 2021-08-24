@@ -9,14 +9,14 @@ return {
         stopwatch:start()
         local reply = message:reply({
             embed = {
-                description = "<a:rosebox_hearts:842568705015021590> calculating", color = botColor
+                description = botEmote.."calculating", color = botColor
             }
         })
         stopwatch:stop()
         local pingTime = math.floor(stopwatch:getTime():toMilliseconds())
         stopwatch:reset()
         reply:setEmbed{
-            description = "<a:rosebox_hearts:842568705015021590> "..pingTime.."ms",
+            description = botEmote.." "..pingTime.."ms",
             color = botColor
         }
     end
