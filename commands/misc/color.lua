@@ -4,7 +4,8 @@ return {
     name = "color",
     description = "return values of a color",
     hidden = false,
-    command = function (message)
+    command = function (message) -- this is like the first thing i ever wrote in lua so it is a fucking mess and im terrified of ever touching it, werks on my machine tho
+        -- TODO: rewrite the whole thing using the color api. will probably never happen but hey, if im ever bored to death;)
         local author = message.guild:getMember(message.author.id)
         local decimal, hex, r, g, b, rgb
         if not args then --no input after command, default to highest role color
@@ -38,26 +39,40 @@ return {
             rgb = r..", "..g..", "..b
         end
         if not hex or not rgb or not decimal then return message:reply(err) end
-        local imagecolor = hex:sub(2):lower()
+        local imageColor = hex:sub(2):lower()
+        local nameResponse, nameResult = http.request("GET", "https://www.thecolorapi.com/id?hex="..hex:sub(2))
+        local colorName
+        if nameResponse.code ~= 200 then
+            colorName = failEmote.." http request failed with code **"..nameResponse.code.."**"
+        else
+            colorName = json.decode(nameResult).name.value
+        end
         message:reply({
             embed = {
                 fields = {
                     {
+                        name = "Name",
+                        value = colorName
+                    },
+                    {
                         name = "Hex",
-                        value = hex
+                        value = hex,
+                        inline = true
                     },
                     {
                         name = "RGB",
-                        value = rgb
+                        value = rgb,
+                        inline = true
                     },
                     {
                         name = "Decimal",
-                        value = decimal
+                        value = decimal,
+                        inline = true
                     }
                 },
                 color = discordia.Color.fromHex(hex).value,
                 thumbnail = {
-                    url = "https://dummyimage.com/200x200/"..imagecolor.."/"..imagecolor..".png"
+                    url = "https://dummyimage.com/200x200/"..imageColor.."/"..imageColor..".png"
                 }
             }
         })
