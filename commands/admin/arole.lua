@@ -56,7 +56,7 @@ return {
                 member:addRole(role.id)
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> added **"..role.mentionString.."** to **"..member.mentionString.."**",
+                        description = successEmote.." added **"..role.mentionString.."** to **"..member.mentionString.."**",
                         color = successColor
                     }
                 })

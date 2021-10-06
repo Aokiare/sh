@@ -11,22 +11,20 @@ return {
             {"Accept", "application/json"}
         }
         local data = "shorten="..args
-        local res, url = http.request("POST", "https://0x0.st", headers, data)
-        if res["code"] == 400 then
+        local response, result = http.request("POST", "https://0x0.st", headers, data)
+        if response.code ~= 200 then
             message:reply({ embed = {
-                color = 0xEA4445,
-                description = "<:shError:835619357249241159> 400 BAD REQUEST"
+                color = failColor,
+                description = failEmote.." http request failed with code **"..response.code.."**"
             }})
-        elseif res["code"] == 200 then
+        else
             message:addReaction("✨")
             message:reply({
                 embed = {
-                    description = "<a:rosebox_hearts:842568705015021590> "..url,
+                    description = botEmote.." "..result,
                     color = botColor
                 }
             })
-        else
-            message:reply(err)
         end
     end
 }

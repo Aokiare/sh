@@ -17,7 +17,7 @@ return {
             message:reply({
                 embed = {
                     color = successColor,
-                    description = "<:shSuccess:835619376052174848> left **"..bot.voiceChannel.name.."**"
+                    description = successEmote.." left **"..bot.voiceChannel.name.."**"
                 }
             })
         end

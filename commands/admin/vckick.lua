@@ -26,7 +26,7 @@ return {
                 message:reply({
                     embed = {
                         color = successColor,
-                        description = "<:shSuccess:835619376052174848> disconnected **"..member.mentionString.."**"
+                        description = successEmote.." disconnected **"..member.mentionString.."**"
                     }
                 })
             return

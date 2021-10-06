@@ -1,6 +1,5 @@
 -- Licensed under the Open Software License version 3.0
 
----@diagnostic disable: undefined-field
 return {
     name = "crole",
     description = "create a role",
@@ -31,7 +30,7 @@ return {
                     end
                     message:reply({
                         embed = {
-                            description ="<:shSuccess:835619376052174848> created role **"..role.mentionString.."**",
+                            description = successEmote.." created role **"..role.mentionString.."**",
                             color = discordia.Color.fromHex(string.trim(argsTable[2])).value
                         }
                     })
@@ -41,7 +40,7 @@ return {
                 local role = server:createRole(author.name.." is fucking braindead")
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> created role **"..role.mentionString.."**",
+                        description = successEmote.." created role **"..role.mentionString.."**",
                         color = successColor
                     }
                 })
@@ -50,7 +49,7 @@ return {
                 local role = server:createRole(args)
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> created role **"..role.mentionString.."**",
+                        description = successEmote.." created role **"..role.mentionString.."**",
                         color = successColor
                     }
                 })

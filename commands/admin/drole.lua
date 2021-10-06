@@ -31,7 +31,7 @@ return {
                 role:delete()
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> deleted **"..rolename.."**",
+                        description = successEmote.." deleted **"..rolename.."**",
                         color = successColor
                     }
                 })
