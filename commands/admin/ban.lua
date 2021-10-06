@@ -24,7 +24,7 @@ return {
                 end
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> successfully banned mf(s)",
+                        description = successEmote.." successfully banned mf(s)",
                         color = successColor
                     }
                 })
@@ -40,7 +40,7 @@ return {
                 message.guild:banUser(args)
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> successfully banned **"..args.mentionString.."**",
+                        description = successEmote.." successfully banned **"..args.mentionString.."**",
                         color = successColor
                     }
                 })

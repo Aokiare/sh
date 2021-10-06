@@ -24,7 +24,7 @@ return {
                 end
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> successfully kicked mf(s)",
+                        description = successEmote.." successfully kicked mf(s)",
                         color = successColor
                     }
                 })
@@ -40,7 +40,7 @@ return {
                 message.guild:kickUser(args)
                 message:reply({
                     embed = {
-                        description ="<:shSuccess:835619376052174848> successfully kicked **"..args.mentionString.."**",
+                        description = successEmote.." successfully kicked **"..args.mentionString.."**",
                         color = successColor
                     }
                 })

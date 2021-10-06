@@ -13,7 +13,7 @@ return {
             if args == "1" then
                 local reply = message:reply({
                     embed = {
-                        description =args.." message was deleted by **"..author.mentionString.."**",
+                        description = args.." message was deleted by **"..author.mentionString.."**",
                         color = botColor
                     }
                 })
@@ -22,7 +22,7 @@ return {
             else
                 local reply = message:reply({
                     embed = {
-                        description =args.." messages were deleted by **"..author.mentionString.."**",
+                        description = args.." messages were deleted by **"..author.mentionString.."**",
                         color = botColor
                     }
                 })

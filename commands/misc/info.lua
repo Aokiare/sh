@@ -41,7 +41,7 @@ return {
                         inline = false
                     }
                 },
-                color = botColor, -- hex color code
+                color = botColor,
                 footer = {
                     text = bot.tag.." is owned by "..owner.tag
                 }

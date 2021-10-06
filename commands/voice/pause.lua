@@ -12,7 +12,7 @@ return {
         message:reply({
             embed = {
                 color = successColor,
-                description = "<:shSuccess:835619376052174848> stream paused"
+                description = successEmote.." stream paused"
             }
         })
     end
