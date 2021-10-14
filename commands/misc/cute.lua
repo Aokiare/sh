@@ -13,7 +13,7 @@ return {
         end
 
         local targetBoard
-        if args == "cm" or "c" then
+        if args == "cm" or args == "c" then
             targetBoard = args
         else
             targetBoard = getBoard()
