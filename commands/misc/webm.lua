@@ -20,11 +20,11 @@ return {
             local parsedData = json.decode(data)
             local postNumber = math.random(1, #parsedData["posts"])
             return {
-            tonumber(parsedData["posts"][postNumber]["tim"]), -- webm name
-            parsedData["posts"][postNumber]["ext"], -- extension
-            parsedData["posts"][postNumber]["no"], -- post number
-            parsedData["posts"][postNumber]["time"], -- post time
-            parsedData["posts"][postNumber]["filename"] -- webm filename
+                tonumber(parsedData["posts"][postNumber]["tim"]), -- webm name
+                parsedData["posts"][postNumber]["ext"], -- extension
+                parsedData["posts"][postNumber]["no"], -- post number
+                parsedData["posts"][postNumber]["time"], -- post time
+                parsedData["posts"][postNumber]["filename"] -- webm filename
             }
         end
 
@@ -49,7 +49,7 @@ return {
                 },
                 footer = {
                     text = webmData[1].." • "..os.date("%d %b %Y %I:%M:%S %p" ,webmData[4])
-                }
+                },
             }
         })
     end
