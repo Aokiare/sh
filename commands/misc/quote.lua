@@ -41,8 +41,10 @@ return {
                 color = member:getColor().value,
                 description = content,
                 footer = {
-                    text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y at %I:%M:%S%p", msg.createdAt + 2 * 60 * 60)
-                }
+                    text = "#"..channel.name.." in "..msg.guild.name
+                    -- text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y at %I:%M:%S%p", msg.createdAt + 2 * 60 * 60)
+                },
+                timestamp = msg.timestamp
             }
         })
     end
