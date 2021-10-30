@@ -13,8 +13,8 @@ return {
             embed = {
                 color = botColor,
                 author = {
-                    name = "nekos.life",
-                    icon_url = "https://nekos.life/static/icons/favicon-194x194.png",
+                    name = "neko",
+                    icon_url = "https://i.imgur.com/OZbLAD7.png",
                 },
                 description = catmoji,
                 image = {
