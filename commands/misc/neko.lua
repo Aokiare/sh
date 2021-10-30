@@ -6,9 +6,9 @@ return {
     hidden = false,
     command = function (message)
         local _, imageData = http.request("GET", "https://nekos.life/api/v2/img/neko")
-        local image = imageData:gsub('{"url":"',""):gsub('"}',"")
+        local image = json.decode(imageData)["url"]
         local _, catmojiData = http.request("GET", "https://nekos.life/api/v2/cat")
-        local catmoji = catmojiData:gsub('{"cat":"',""):gsub('"}',"")
+        local catmoji = json.decode(catmojiData)["cat"]
         message:reply({
             embed = {
                 color = botColor,
