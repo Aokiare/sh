@@ -13,7 +13,7 @@ _G.voiceAnnouncements = require("./modules/voiceAnnouncements")
 _G.commands = require("./commands")
 _G.spawn = require("coro-spawn")
 _G.parse = require("url").parse
--- _G.keepAlive = require("./modules/keepAlive") -- only needed for repl.it
+_G.keepAlive = require("./modules/keepAlive") -- only needed for repl.it
 discordia.extensions()
 
 client:on("ready", function()
