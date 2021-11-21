@@ -26,7 +26,12 @@ return {
                     url = "https://dummyimage.com/200x200/"..imageColor.."/"..imageColor..".png"
                 },
                 fields = {
-                    {
+                {
+                    name = "ID",
+                    value = role.id,
+                    inline = true
+                },
+                {
                     name = "name",
                     value = role.name,
                     inline = true
@@ -37,29 +42,29 @@ return {
                     inline = true
                 },
                 {
-                    name = "members",
-                    value = role.members:count(),
-                    inline = true
-                },
-                {
-                    name = "mention",
-                    value = role.mentionString,
-                    inline = true
-                },
-                {
                     name = "hoisted",
                     value = tostring(role.hoisted):lower(),
-                    inline = true
-                },
-                {
-                    name = "position",
-                    value = role.position,
                     inline = true
                 },
                 {
                     name = "mentionable",
                     value = tostring(role.mentionable):lower(),
                     inline = true
+                },
+                {
+                    name = "managed",
+                    value = tostring(role.managed):lower(),
+                    inline = true
+                },
+                {
+                    name = "position",
+                    value = role.position,
+                    inline = false
+                },
+                {
+                    name = "members",
+                    value = role.members:count(),
+                    inline = false
                 },
                 {
                     name = "perms",
@@ -69,8 +74,10 @@ return {
             },
                 color = embedColor,
                 footer = {
-                    text = "ID: "..role.id.." • created at "..os.date("%d %B %Y", role.createdAt + 2 * 60 * 60)
-                }
+                    text = "role created"
+                    -- text = "ID: "..role.id.." • created at "..os.date("%d %B %Y", role.createdAt)
+                },
+                timestamp = role.timestamp
             }
         })
     end
