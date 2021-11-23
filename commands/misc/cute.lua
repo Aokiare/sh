@@ -63,7 +63,7 @@ return {
                     url = "https://boards.4channel.org/"..targetBoard.."/thread/"..threadNumber.."#p"..wallpaperData[3]
                 },
                 footer = {
-                    text = wallpaperData[1].." • "..os.date("%d %b %Y %I:%M:%S %p" ,wallpaperData[4])
+                    text = wallpaperData[1].." | "..os.date("%d %b %Y • %I:%M:%S %p" ,wallpaperData[4])
                 }
             }
         })

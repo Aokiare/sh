@@ -48,7 +48,7 @@ return {
                     url = "https://boards.4channel.org/"..targetBoard.."/thread/"..threadNumber.."#p"..webmData[3]
                 },
                 footer = {
-                    text = webmData[1].." • "..os.date("%d %b %Y %I:%M:%S %p" ,webmData[4])
+                    text = webmData[1].." | "..os.date("%d %b %Y • %I:%M:%S %p" ,webmData[4])
                 },
             }
         })
