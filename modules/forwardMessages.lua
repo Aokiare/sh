@@ -17,20 +17,22 @@ client:on("messageCreate", function(message)
                     color = botColor
                 }
             })
-        else
-            ownerDM:send({
-                embed = {
-                    author = {
-                        name = message.author.tag,
-                        icon_url = message.author:getAvatarURL(1024)
-                    },
-                    description = message.content,
-                    image = {
-                        url = message.attachment.url
-                    },
-                    color = botColor
-                }
-            })
+        elseif #message.attachments >= 1 then
+            for i = 1, #message.attachments do
+                ownerDM:send({
+                    embed = {
+                        author = {
+                            name = message.author.tag,
+                            icon_url = message.author:getAvatarURL(1024)
+                        },
+                        description = message.content,
+                        image = {
+                            url = message.attachments[i].url
+                        },
+                        color = botColor
+                    }
+                })
+            end
         end
     end
 end)
