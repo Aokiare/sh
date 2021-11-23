@@ -9,7 +9,8 @@ return {
         stopwatch:start()
         local reply = message:reply({
             embed = {
-                description = botEmote.."calculating", color = botColor
+                description = botEmote.."calculating",
+                color = botColor
             }
         })
         stopwatch:stop()
