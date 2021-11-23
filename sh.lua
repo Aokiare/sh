@@ -42,6 +42,10 @@ client:on("messageCreate", function(message)
         -- Run a command if it exists
         if commands[command] then
             commands[command].command(message)
+            local currentTime = os.time()
+            local location
+            if message.guild then location= "#"..message.channel.name..", "..message.guild.name.." ("..message.guild.id..")" else location = message.author.name.."'s dms" end
+            print(os.date("%d %b %Y • %I:%M:%S %p" ,currentTime).." | [COMMAND] "..command.." | "..message.author.tag.." ("..message.author.id..") in "..location)
         end
     end
     collectgarbage("collect")

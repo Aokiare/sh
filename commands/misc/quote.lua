@@ -10,14 +10,14 @@ return {
         if message.channel:getMessage(args) then
             msg = message.channel:getMessage(args)
             content = msg.content
-            channel = msg.guild:getChannel(msg.channel.id)
+            channel = msg.channel
         else
             if not tonumber(args) then
                 if args then
                     msg = message
                     message:delete()
                     content = msg.content:gsub("%"..prefix.."quote ","")
-                    channel = msg.guild:getChannel(msg.channel.id)
+                    channel = msg.channel
                 end
             else
                 for txtchnl in message.guild.textChannels:iter() do
