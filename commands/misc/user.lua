@@ -56,7 +56,9 @@ return {
             roleCount = member.roles:count()
         end
         local perms
-        if member:hasPermission("administrator") then
+        if member == message.guild.owner then
+            perms = "owner"
+        elseif member:hasPermission("administrator") then
             perms = "administrator"
         else
             perms = utils.tableToString(member:getPermissions():toArray())
