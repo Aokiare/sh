@@ -46,7 +46,7 @@ client:on("messageCreate", function(message)
             local currentTime = os.time()
             local location
             if message.guild then location= "#"..message.channel.name..", "..message.guild.name.." ("..message.guild.id..")" else location = message.author.name.."'s dms" end
-            print(os.date("%d %b %Y • %I:%M:%S %p" ,currentTime).." | [COMMAND] "..command.." | "..message.author.tag.." ("..message.author.id..") in "..location)
+            print(os.date("%d %b %Y • %I:%M:%S %p" ,currentTime).." | \27[36m[COMMAND]\27[0m "..command.." | "..message.author.tag.." ("..message.author.id..") "..location)
         end
     end
     collectgarbage("collect")
