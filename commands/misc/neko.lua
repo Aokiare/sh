@@ -5,7 +5,11 @@ return {
     description = "nekos.life command",
     hidden = false,
     command = function (message)
-        local _, imageData = http.request("GET", "https://nekos.life/api/v2/img/neko")
+        local endpoint = "neko"
+        if args then
+            endpoint = args
+        end
+        local _, imageData = http.request("GET", "https://nekos.life/api/v2/img/"..endpoint)
         local image = json.decode(imageData)["url"]
         local _, catmojiData = http.request("GET", "https://nekos.life/api/v2/cat")
         local catmoji = json.decode(catmojiData)["cat"]
