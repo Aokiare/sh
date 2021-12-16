@@ -7,11 +7,11 @@ return {
 	command = function (message)
         local author = message.guild:getMember(message.author.id)
         local member, color = author, botColor
-        if message.mentionedUsers.first then -- if mentioned user return mentioned user avatar
+        if message.mentionedUsers.first then
             member = message.guild:getMember(message.mentionedUsers.first.id)
-        elseif message.guild:getMember(args) then -- if used member user id return member avatar with highest role color embed
+        elseif message.guild:getMember(args) then
             member = message.guild:getMember(args)
-        elseif not message.guild:getMember(args) and client:getUser(args) then -- if used non member id return user avatar
+        elseif not message.guild:getMember(args) and client:getUser(args) then
             member = client:getUser(args)
         elseif args then
             member = message.guild.members:find(function(m) return m.name == args end)
