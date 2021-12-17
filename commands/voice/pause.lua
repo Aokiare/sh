@@ -7,7 +7,6 @@ return {
     command = function (message)
         local bot = message.guild:getMember(client.user.id)
         if not bot.voiceChannel then return message:reply(err) end
-        message:addReaction("✨")
         bot.voiceChannel.connection:pauseStream()
         message:reply({
             embed = {

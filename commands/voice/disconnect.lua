@@ -12,7 +12,6 @@ return {
             reply:delete()
         return
         else
-            message:addReaction("✨")
             bot.voiceChannel.connection:close()
             message:reply({
                 embed = {

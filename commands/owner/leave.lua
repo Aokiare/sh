@@ -17,7 +17,6 @@ return {
             end
         end)
         if res == true then
-            message:addReaction("✨")
             message:reply("aight im headin out")
             message.guild:leave()
         else

@@ -15,7 +15,6 @@ return {
                 message:delete()
                 reply:delete()
             else
-                message:addReaction("✨")
                 for user in message.mentionedUsers:iter() do
                     member = message.guild:getMember(user.id)
                     if author.highestRole.position > member.highestRole.position then
@@ -36,7 +35,6 @@ return {
                 message:delete()
                 reply:delete()
             else
-                message:addReaction("✨")
                 message.guild:kickUser(args)
                 message:reply({
                     embed = {

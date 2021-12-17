@@ -29,7 +29,6 @@ return {
         end
         if vc.connection then
             vc.connection:stopStream()
-            message:addReaction("✨")
             message:reply({
                 embed = {
                     author = {

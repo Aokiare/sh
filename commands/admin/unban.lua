@@ -24,7 +24,6 @@ return {
                     })
                 return
                 else
-                    message:addReaction("✨")
                     message.guild:unbanUser(user.id)
                     message:reply({
                         embed = {

@@ -13,7 +13,6 @@ return {
             if string.find(args, ",") then
                 local argsTable = string.split(args,",") -- name, hex color, hoisted, mentioned
                 if string.trim(argsTable[1]) then
-                    message:addReaction("✨")
                     local role = server:createRole(string.trim(argsTable[1]))
                     if string.trim(argsTable[2]) and utils.isHex(string.trim(argsTable[2])) then
                         role:setColor(discordia.Color.fromHex(string.trim(argsTable[2])))
@@ -36,7 +35,6 @@ return {
                     })
                 end
             elseif not args then
-                message:addReaction("✨")
                 local role = server:createRole(author.name.." is fucking braindead")
                 message:reply({
                     embed = {
@@ -45,7 +43,6 @@ return {
                     }
                 })
             else
-                message:addReaction("✨")
                 local role = server:createRole(args)
                 message:reply({
                     embed = {

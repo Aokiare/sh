@@ -14,7 +14,6 @@ return {
             role = message.guild.roles:find(function(r) return r.name == args end)
         end
         if not role then return message:reply(err) end
-        message:addReaction("✨")
         local embedColor
         if discordia.Color(role.color).value == 0 then embedColor = botColor else embedColor = discordia.Color(role.color).value end
         local imageColor = discordia.Color(discordia.Color(role.color).value):toHex():sub(2):lower()
