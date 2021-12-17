@@ -30,14 +30,21 @@ return {
             end
             if bot.highestRole.position < member.highestRole.position then return message:reply({
                     embed = {
-                        description = failEmote.." **"..member.mentionString.."** has a higher role than me so i cant do that",
+                        description = failEmote.." **"..member.mentionString.."** has a higher role than me",
                         color = failColor
                     }
                 })
             end
-            message:addReaction("✨")
+            if member == message.guild.owner then return message:reply({
+                    embed = {
+                        description = failEmote.." bots can not modify the owner's nickname",
+                        color = failColor
+                    }
+                })
+            end
             if nickname then
                 member:setNickname(nickname)
+                if member.nickname ~= nickname then return message:reply(err) end
                 message:reply({
                     embed = {
                         color = successColor,
@@ -46,6 +53,7 @@ return {
                 })
             else
                 member:setNickname()
+                if member.nickname then return message:reply(err) end
                 message:reply({
                     embed = {
                         color = successColor,
