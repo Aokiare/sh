@@ -14,7 +14,7 @@ return {
         elseif not message.guild:getMember(args) and client:getUser(args) then
             member = client:getUser(args)
         elseif args then
-            member = message.guild.members:find(function(m) return m.name == args end)
+            member = message.guild.members:find(function(m) return m.name == args or m.tag == args or m.nickname == args end)
         end
         if not member then return message:reply(err) end
         if message.guild:getMember(member.id) then color = member:getColor().value end
