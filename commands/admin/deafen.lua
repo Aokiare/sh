@@ -21,7 +21,6 @@ return {
             if not member or not member.voiceChannel then
                 message:reply(err)
             else
-                message:addReaction("✨")
                 member:deafen()
                 message:reply({
                     embed = {

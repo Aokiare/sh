@@ -18,7 +18,6 @@ return {
                 description = failEmote.." http request failed with code **"..response.code.."**"
             }})
         else
-            message:addReaction("✨")
             message:reply({
                 embed = {
                     description = botEmote.." "..result,

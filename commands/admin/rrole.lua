@@ -52,7 +52,6 @@ return {
             if not member or not role then
                 message:reply(err)
             else
-                message:addReaction("✨")
                 member:removeRole(role.id)
                 message:reply({
                     embed = {

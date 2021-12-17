@@ -30,7 +30,6 @@ return {
             if not member or not vc or not vc.type == 2 or not member.voiceChannel then
                 message:reply(err)
             else
-                message:addReaction("✨")
                 member:setVoiceChannel(vc.id)
                 message:reply({
                     embed = {

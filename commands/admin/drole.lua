@@ -27,7 +27,6 @@ return {
                 message:reply(err)
             else
                 local rolename = role.name
-                message:addReaction("✨")
                 role:delete()
                 message:reply({
                     embed = {

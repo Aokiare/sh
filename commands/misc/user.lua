@@ -44,7 +44,6 @@ return {
         end
 
         if not member then return message:reply(err) end
-        message:addReaction("✨")
         local roleString, roleCount = ""
         if not member.roles.first then
             roleString = "none"
