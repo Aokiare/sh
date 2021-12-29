@@ -47,7 +47,7 @@ commands["help"] =
 	command = function(message)
     local mess = ""
     for  k,v in pairs(commands) do
-        if commands[k].hidden == false then
+        if commands[k].hidden == false or message.author == owner then
             mess = mess .. "`" .. commands[k].name .. "` - " .. commands[k].description .. "\n"
         end
     end
