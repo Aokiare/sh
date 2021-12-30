@@ -1,6 +1,7 @@
 -- Licensed under the Open Software License version 3.0
 
 local utils = {}
+
 function utils.getStream(url)
     local child = spawn('youtube-dl', {
         args = {'-g', url},
@@ -22,9 +23,11 @@ function utils.getStream(url)
 
     return stream
 end
+
 function utils.isLink(str)
     return utils.startsWith(str, "http://") or utils.startsWith(str, "https://") or utils.startsWith(str, "www.") or utils.startsWith(str, "youtube.com/watch?v=")
 end
+
 function utils.hasPrefix(string,prefix)
 	if string:sub(1,#prefix) == prefix then
 		return true
@@ -32,26 +35,33 @@ function utils.hasPrefix(string,prefix)
 		return false
 	end
 end
+
 function utils.removeFirstWord(string)
 	if string:find("%s") then
 	return string:sub(string:find("%s"),#string)
 	end
 end
+
 function utils.startsWith(str, start)
     return str:sub(1, #start) == start
 end
+
 function utils.isNumeric(str)
     return tonumber(str) ~= nil
 end
+
 function utils.isHex(str)
     return utils.startsWith(str, "#") and #str == 7
 end
+
 function utils.isRGB(str)
     return utils.isNumeric(str) and str <= 255
 end
+
 function utils.isDecimal(str)
     return utils.isNumeric(str) and tonumber(str) <= 16777215
 end
+
 function utils.tableToString(tbl)
     local result = ""
     for k, v in pairs(tbl) do
@@ -64,15 +74,19 @@ function utils.tableToString(tbl)
     end
     return result..""
 end
+
 function utils.luaCode(str)
     return string.format('```lua\n%s```', str)
 end
+
 function utils.shellCode(str)
     return string.format('```sh\n%s```', str)
 end
+
 function utils.code(str)
     return string.format('```\n%s```', str)
 end
+
 function utils.printLine(...)
     local ret = {}
     for i = 1, select('#', ...) do
@@ -81,6 +95,7 @@ function utils.printLine(...)
     end
     return table.concat(ret, '\t')
 end
+
 function utils.prettyLine(...)
     local ret = {}
     for i = 1, select('#', ...) do
@@ -89,6 +104,17 @@ function utils.prettyLine(...)
     end
     return table.concat(ret, '\t')
 end
+
+function utils.removeExtension(directories, extension)
+    for k, v in pairs(directories) do
+        if v:sub(-#extension-1) == "."..extension then
+            table.remove(directories, k)
+        end
+    end
+    return directories
+end
+
 utils.timeInit = os.time()
 _G.err = { embed = {description ="<:shError:835619357249241159> nah something aint right", color = 0xEA4445}}
+
 return utils

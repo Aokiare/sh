@@ -1,43 +1,23 @@
 -- Licensed under the Open Software License version 3.0
 
 local commands = {}
-commands["ban"] = require("./admin/ban")
-commands["unban"] = require("./admin/unban")
-commands["kick"] = require("./admin/kick")
-commands["clear"] = require("./admin/clear")
-commands["nickname"] = require("./admin/nickname")
-commands["crole"] = require ("./admin/crole")
-commands["drole"] = require ("./admin/drole")
-commands["arole"] = require ("./admin/arole")
-commands["rrole"] = require ("./admin/rrole")
-commands["move"] = require ("./admin/move")
-commands["mute"] = require ("./admin/mute")
-commands["unmute"] = require ("./admin/unmute")
-commands["deafen"] = require ("./admin/deafen")
-commands["undeafen"] = require ("./admin/undeafen")
-commands["vckick"] = require ("./admin/vckick")
-commands["ping"] = require("./misc/ping")
-commands["avatar"] = require("./misc/avatar")
-commands["color"] = require("./misc/color")
-commands["info"] = require("./misc/info")
-commands["time"] = require("./misc/time")
-commands["role"] = require ("./misc/role")
-commands["user"] = require ("./misc/user")
-commands["quote"] = require ("./misc/quote")
-commands["shorten"] = require ("./misc/shorten")
-commands["cute"] = require ("./misc/cute")
-commands["webm"] = require ("./misc/webm")
-commands["neko"] = require ("./misc/neko")
-commands["domain"] = require ("./misc/domain")
-commands["lain"] = require ("./voice/lain")
-commands["disconnect"] = require ("./voice/disconnect")
-commands["pause"] = require ("./voice/pause")
-commands["resume"] = require ("./voice/resume")
-commands["leave"] = require ("./owner/leave")
-commands["say"] = require ("./owner/say")
-commands["setstatus"] = require ("./owner/setstatus")
-commands["setgame"] = require ("./owner/setgame")
-commands["eval"] = require ("./owner/eval")
+
+local path = "./commands"
+local dirs = fs.readdirSync(path)
+dirs = utils.removeExtension(dirs, "lua")
+
+
+for dir = 1, #dirs do
+    local category = dirs[dir]
+    local files = fs.readdirSync(path.."/"..category)
+    for file = 1, #files do
+        local cmd = files[file]:gsub(".lua","")
+        commands[cmd] = require("./"..category.."/"..cmd)
+        -- print(os.date("%d %b %Y • %I:%M:%S %p" ,os.time()).." | \27[36m\27[1m[INIT]\27[0m    | Loaded "..cmd:upper().." command")
+    end
+    -- print(os.date("%d %b %Y • %I:%M:%S %p" ,os.time()).." | \27[36m\27[1m[INIT]\27[0m    | \27[32m\27[1mSuccessfully loaded all "..category.." commands\27[0m")
+    print(os.date("%d %b %Y • %I:%M:%S %p" ,os.time()).." | \27[1;36m[INIT]\27[0m    | Successfully loaded all "..category:upper().." commands")
+end
 
 commands["help"] =
 {
@@ -54,7 +34,7 @@ commands["help"] =
     message:reply({
         embed = {
             author = {
-                name = bot.name.."'s help page",
+                name = bot.name.."'s help",
                 icon_url = bot:getAvatarURL(1024)
             },
             description = mess,
