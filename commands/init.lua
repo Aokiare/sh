@@ -12,9 +12,7 @@ for dir = 1, #dirs do
     for file = 1, #files do
         local cmd = files[file]:gsub(".lua","")
         commands[cmd] = require("./"..category.."/"..cmd)
-        -- print(os.date("%d %b %Y • %I:%M:%S %p" ,os.time()).." | \27[36m\27[1m[INIT]\27[0m    | Loaded "..cmd:upper().." command")
     end
-    -- print(os.date("%d %b %Y • %I:%M:%S %p" ,os.time()).." | \27[36m\27[1m[INIT]\27[0m    | \27[32m\27[1mSuccessfully loaded all "..category.." commands\27[0m")
     print(os.date("%d %b %Y • %I:%M:%S %p" ,os.time()).." | \27[1;36m[INIT]\27[0m    | Successfully loaded all "..category:upper().." commands")
 end
 
