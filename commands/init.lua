@@ -6,7 +6,6 @@ local path = "./commands"
 local dirs = fs.readdirSync(path)
 dirs = utils.removeExtension(dirs, "lua")
 
-
 for dir = 1, #dirs do
     local category = dirs[dir]
     local files = fs.readdirSync(path.."/"..category)

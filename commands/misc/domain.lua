@@ -6,6 +6,7 @@ return {
     hidden = false,
     command = function (message)
         local token = "Njalla "..njallaToken
+        if not token then return message:reply({embed {description = failEmote.." no njalla token provided in config", color = failColor}}) end
         local domainQuery = string.trim(args)
 
         local headers = {
