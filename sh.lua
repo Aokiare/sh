@@ -1,8 +1,10 @@
 -- Licensed under the Open Software License version 3.0
 
 _G.discordia = require("discordia")
-_G.client = discordia.Client()
-_G.FileReader = require("fs")
+_G.client = discordia.Client {
+    dateTime = '%d %b %Y • %I:%M:%S %p',
+}
+_G.fs= require("fs")
 _G.http = require("coro-http")
 _G.json = require("json")
 _G.pp = require("pretty-print")
@@ -19,7 +21,7 @@ discordia.extensions()
 
 client:on("ready", function()
     client:setStatus("dnd")
-    print(os.date("%F %T", os.time() + 2 * 60 * 60).." | \027[94m[BOT]\027[0m     | "..client.user.username.." is online!")
+    print(os.date("%d %b %Y • %I:%M:%S %p", os.time() + 2 * 60 * 60).." | \027[94m[BOT]\027[0m     | "..client.user.username.." is online!")
     _G.bot = client:getUser(client.user.id)
     _G.owner = client:getUser(client.owner.id)
     collectgarbage("collect")
@@ -46,7 +48,7 @@ client:on("messageCreate", function(message)
             local currentTime = os.time()
             local location
             if message.guild then location= "#"..message.channel.name..", "..message.guild.name.." ("..message.guild.id..")" else location = message.author.name.."'s dms" end
-            print(os.date("%d %b %Y • %I:%M:%S %p" ,currentTime).." | \27[36m[COMMAND]\27[0m "..command.." | "..message.author.tag.." ("..message.author.id..") "..location)
+            print(os.date("%d %b %Y • %I:%M:%S %p" ,currentTime).." | \27[33m[CMD]\27[0m     | "..command:upper().." <- "..message.author.tag.." ("..message.author.id..") "..location)
         end
     end
     collectgarbage("collect")
