@@ -9,7 +9,7 @@ njalla
 
 *.log
 
-gateway.json
+*.json
 
 lit
 

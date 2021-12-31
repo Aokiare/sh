@@ -1,0 +1,11 @@
+{
+	"prefix": "!",
+	"botToken": "TOKEN",
+	"njallaToken": "",
+	"botEmote": "<a:animatedEmoteName:123456789123456789>",
+	"successEmote": "<:stillEmoteName:123456789123456789>",
+	"failEmote": ":thumbsdown:",
+	"botColor": "#0000FF",
+	"successColor": "#00FF00",
+	"failColor": "#FF0000"
+}
