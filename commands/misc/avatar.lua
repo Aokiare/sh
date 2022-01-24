@@ -18,7 +18,7 @@ return {
         end
         if not member then return message:reply(err) end
         if message.guild:getMember(member.id) then color = member:getColor().value end
-        local avatar = member:getAvatarURL(1024)
+        local avatar = member:getAvatarURL(2048)
         message:reply({
             embed = {
                 author = {
