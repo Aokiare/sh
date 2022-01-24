@@ -1,17 +1,14 @@
-
 .vscode/
-
-token
-
-njalla
-
-*.dll
-
-*.so
 
 *.log
 
-*.json
+config.json
+
+config_ssh.json
+
+gateway.json
+
+*.txt
 
 lit
 
@@ -19,4 +16,6 @@ luvi
 
 luvit
 
-*.txt
+*.dll
+
+*.so
