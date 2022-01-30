@@ -1,17 +1,9 @@
 .vscode/
-
 *.log
-
 config.json
-
 config-ssh.json
-
 gateway.json
-
 *.txt
-
 lit
-
 luvi
-
 *.dll
