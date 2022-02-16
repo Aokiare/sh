@@ -34,14 +34,15 @@ return {
             parsedData["posts"][postNumber]["ext"], -- image extension
             parsedData["posts"][postNumber]["no"], -- post number
             parsedData["posts"][postNumber]["time"], -- post time
-            parsedData["posts"][postNumber]["filename"] -- image filename
+            parsedData["posts"][postNumber]["filename"], -- image filename
+            parsedData["posts"][postNumber]["sticky"] -- whether thread is a sticky or not
             }
         end
 
         local threadNumber = getThread()
         local wallpaperData = getReplyImage(threadNumber)
 
-        while not wallpaperData[1] do
+        while not wallpaperData[1] or wallpaperData[6] == 1 do
             threadNumber = getThread()
             wallpaperData = getReplyImage(threadNumber)
         end
