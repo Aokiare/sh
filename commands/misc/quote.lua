@@ -4,7 +4,7 @@ return {
     name = "quote",
     description = "quote a message",
     hidden = false,
-    command = function (message)
+    command = function(message)
         local msg, channel, member, content
 
         if message.channel:getMessage(args) then
@@ -16,7 +16,7 @@ return {
                 if args then
                     msg = message
                     message:delete()
-                    content = msg.content:gsub("%"..prefix.."quote ","")
+                    content = msg.content:gsub("%" .. prefix .. "quote ", "")
                     channel = msg.channel
                 end
             else
@@ -25,7 +25,7 @@ return {
                         msg = txtchnl:getMessage(args)
                         content = msg.content
                         channel = txtchnl
-                    break
+                        break
                     end
                 end
                 if not msg then return message:reply(err) end
@@ -41,7 +41,7 @@ return {
                 color = member:getColor().value,
                 description = content,
                 footer = {
-                    text = "#"..channel.name.." in "..msg.guild.name
+                    text = "#" .. channel.name .. " in " .. msg.guild.name
                     -- text = "#"..channel.name.." in "..msg.guild.name.." • "..os.date("%d/%m/%Y at %I:%M:%S%p", msg.createdAt + 2 * 60 * 60)
                 },
                 timestamp = msg.timestamp

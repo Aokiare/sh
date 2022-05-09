@@ -1,15 +1,15 @@
 -- Licensed under the Open Software License version 3.0
 
 return {
-    name = 	"info",
+    name = "info",
     description = "info about the bot",
     hidden = false,
-    command = function (message)
+    command = function(message)
         local time = os.time() - utils.timeInit
-        local hours = string.format("%1.f", math.floor(time/3600));
-        local mins = string.format("%1.f", math.floor(time/60 - (hours*60)));
-        local secs = string.format("%1.f", math.floor(time - hours*3600 - mins *60));
-        local mb = string.format("%2.2f", collectgarbage("count")/1000)
+        local hours = string.format("%1.f", math.floor(time / 3600));
+        local mins = string.format("%1.f", math.floor(time / 60 - (hours * 60)));
+        local secs = string.format("%1.f", math.floor(time - hours * 3600 - mins * 60));
+        local mb = string.format("%2.2f", collectgarbage("count") / 1000)
         local uptime = ""
         if hours ~= "0" then
             uptime = uptime .. hours .. " hours "
@@ -32,7 +32,7 @@ return {
                     },
                     {
                         name = "ram",
-                        value = (mb.."MB"),
+                        value = (mb .. "MB"),
                         inline = false
                     },
                     {
@@ -43,7 +43,7 @@ return {
                 },
                 color = botColor,
                 footer = {
-                    text = bot.tag.." is owned by "..owner.tag
+                    text = bot.tag .. " is owned by " .. owner.tag
                 }
             }
         })

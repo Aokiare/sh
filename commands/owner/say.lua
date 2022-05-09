@@ -4,7 +4,7 @@ return {
     name = "say",
     description = "repeat a sentence",
     hidden = true,
-    command = function (message)
+    command = function(message)
         if message.author ~= owner then message:addReaction("🤡") return end
         local msg = args
         local channel = message.channel

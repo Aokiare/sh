@@ -4,7 +4,7 @@ return {
     name = "user",
     description = "reutrn information about a user",
     hidden = false,
-    command = function (message)
+    command = function(message)
         local member
         if message.mentionedUsers.first then
             member = message.guild:getMember(message.mentionedUsers.first.id)
@@ -36,11 +36,11 @@ return {
                         }
                     },
                     footer = {
-                        text = "ID: "..user.id
+                        text = "ID: " .. user.id
                     }
                 }
             })
-        return
+            return
         end
 
         if not member then return message:reply(err) end
@@ -50,7 +50,7 @@ return {
             roleCount = "0"
         else
             for role in member.roles:iter() do
-                roleString = roleString..role.mentionString.." "
+                roleString = roleString .. role.mentionString .. " "
             end
             roleCount = member.roles:count()
         end
@@ -94,14 +94,14 @@ return {
                         name = "bot", value = tostring(member.user.bot):lower()
                     },
                     {
-                        name = "roles ["..roleCount.."]", value = roleString
+                        name = "roles [" .. roleCount .. "]", value = roleString
                     },
                     {
                         name = "perms", value = perms
                     }
                 },
                 footer = {
-                    text = "ID: "..member.id
+                    text = "ID: " .. member.id
                 }
             }
         })

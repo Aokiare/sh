@@ -4,8 +4,8 @@ return {
     name = "eval",
     description = "execute lua code",
     hidden = true,
-    command = function (message)
-        local sandbox = setmetatable({ }, { __index = _G })
+    command = function(message)
+        local sandbox = setmetatable({}, { __index = _G })
 
         if message.author ~= owner then return end
         local _, evalCommand = message.content:match("^(%S+)%s+(.+)$")
@@ -25,38 +25,38 @@ return {
 
         local fn, synErr = load(evalCommand, "cutebot", "t", sandbox)
         if not fn then return message:reply({
-            embed = {
-                fields = {
-                    {
-                        name = "input",
-                        value = utils.luaCode(evalCommand)
+                embed = {
+                    fields = {
+                        {
+                            name = "input",
+                            value = utils.luaCode(evalCommand)
+                        },
+                        {
+                            name = "output",
+                            value = utils.code(synErr)
+                        }
                     },
-                    {
-                        name = "output",
-                        value = utils.code(synErr)
-                    }
-                },
-                color = botColor
-            }
-        })
+                    color = botColor
+                }
+            })
         end
 
         local success, runErr = pcall(fn)
         if not success then return message:reply({
-            embed = {
-                fields = {
-                    {
-                        name = "input",
-                        value = utils.luaCode(evalCommand)
+                embed = {
+                    fields = {
+                        {
+                            name = "input",
+                            value = utils.luaCode(evalCommand)
+                        },
+                        {
+                            name = "output",
+                            value = utils.code(runErr)
+                        }
                     },
-                    {
-                        name = "output",
-                        value = utils.code(runErr)
-                    }
-                },
-                color = botColor
-            }
-        })
+                    color = botColor
+                }
+            })
         end
 
         lines = table.concat(lines, '\n')
@@ -66,20 +66,20 @@ return {
         end
 
         if #lines > 0 then return message:reply({
-            embed = {
-                fields = {
-                    {
-                        name = "input",
-                        value = utils.luaCode(evalCommand)
+                embed = {
+                    fields = {
+                        {
+                            name = "input",
+                            value = utils.luaCode(evalCommand)
+                        },
+                        {
+                            name = "output",
+                            value = utils.shellCode(lines)
+                        }
                     },
-                    {
-                        name = "output",
-                        value = utils.shellCode(lines)
-                    }
-                },
-                color = botColor
-            }
-        })
+                    color = botColor
+                }
+            })
         end
     end
 }
