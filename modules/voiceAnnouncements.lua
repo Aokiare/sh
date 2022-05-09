@@ -12,7 +12,7 @@ client:on("voiceUpdate", function(member)
     announceUpdate(member)
 end)
 
-_G.announceJoin = function (member, vc)
+_G.announceJoin = function(member, vc)
     local guild = member.parent
     local channel
 
@@ -23,12 +23,12 @@ _G.announceJoin = function (member, vc)
     end
 
     if member.id == client.user.id then return end
-    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** joined "..vc.name, color = botColor}})
-    discordia.Clock():waitFor("",5000)
+    local msg = channel:send({ embed = { author = { name = member.tag, icon_url = member:getAvatarURL(1024) }, description = "**" .. member.name .. "** joined " .. vc.name, color = botColor } })
+    discordia.Clock():waitFor("", 5000)
     if msg then msg:delete() end
 end
 
-_G.announceLeave = function (member, vc)
+_G.announceLeave = function(member, vc)
     local guild = member.parent
     local channel
 
@@ -39,12 +39,12 @@ _G.announceLeave = function (member, vc)
     end
 
     if member.id == client.user.id then return end
-    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."** left "..vc.name, color = botColor}})
-    discordia.Clock():waitFor("",5000)
+    local msg = channel:send({ embed = { author = { name = member.tag, icon_url = member:getAvatarURL(1024) }, description = "**" .. member.name .. "** left " .. vc.name, color = botColor } })
+    discordia.Clock():waitFor("", 5000)
     if msg then msg:delete() end
 end
 
-_G.announceUpdate = function (member)
+_G.announceUpdate = function(member)
     local guild = member.parent
     local channel
 
@@ -55,7 +55,7 @@ _G.announceUpdate = function (member)
     end
 
     if member.id == client.user.id then return end
-    local msg = channel:send({embed = {author = {name = member.tag, icon_url = member:getAvatarURL(1024)}, description ="**"..member.name.."**'s voice status has been updated", color = botColor}})
-    discordia.Clock():waitFor("",5000)
+    local msg = channel:send({ embed = { author = { name = member.tag, icon_url = member:getAvatarURL(1024) }, description = "**" .. member.name .. "**'s voice status has been updated", color = botColor } })
+    discordia.Clock():waitFor("", 5000)
     if msg then msg:delete() end
 end

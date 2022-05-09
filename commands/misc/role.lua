@@ -4,7 +4,7 @@ return {
     name = "role",
     description = "return info about a role",
     hidden = false,
-    command = function (message)
+    command = function(message)
         local role
         if message.mentionedRoles.first then
             role = message.mentionedRoles.first
@@ -20,55 +20,55 @@ return {
         message:reply({
             embed = {
                 thumbnail = {
-                    url = "https://dummyimage.com/200x200/"..imageColor.."/"..imageColor..".png"
+                    url = "https://dummyimage.com/200x200/" .. imageColor .. "/" .. imageColor .. ".png"
                 },
                 fields = {
-                {
-                    name = "ID",
-                    value = role.id,
-                    inline = true
+                    {
+                        name = "ID",
+                        value = role.id,
+                        inline = true
+                    },
+                    {
+                        name = "name",
+                        value = role.name,
+                        inline = true
+                    },
+                    {
+                        name = "color",
+                        value = tostring(discordia.Color(role.color):toHex()):lower(),
+                        inline = true
+                    },
+                    {
+                        name = "hoisted",
+                        value = tostring(role.hoisted):lower(),
+                        inline = true
+                    },
+                    {
+                        name = "mentionable",
+                        value = tostring(role.mentionable):lower(),
+                        inline = true
+                    },
+                    {
+                        name = "managed",
+                        value = tostring(role.managed):lower(),
+                        inline = true
+                    },
+                    {
+                        name = "position",
+                        value = role.position,
+                        inline = false
+                    },
+                    {
+                        name = "members",
+                        value = role.members:count(),
+                        inline = false
+                    },
+                    {
+                        name = "perms",
+                        value = utils.tableToString(role:getPermissions():toArray()),
+                        inline = false
+                    }
                 },
-                {
-                    name = "name",
-                    value = role.name,
-                    inline = true
-                },
-                {
-                    name = "color",
-                    value = tostring(discordia.Color(role.color):toHex()):lower(),
-                    inline = true
-                },
-                {
-                    name = "hoisted",
-                    value = tostring(role.hoisted):lower(),
-                    inline = true
-                },
-                {
-                    name = "mentionable",
-                    value = tostring(role.mentionable):lower(),
-                    inline = true
-                },
-                {
-                    name = "managed",
-                    value = tostring(role.managed):lower(),
-                    inline = true
-                },
-                {
-                    name = "position",
-                    value = role.position,
-                    inline = false
-                },
-                {
-                    name = "members",
-                    value = role.members:count(),
-                    inline = false
-                },
-                {
-                    name = "perms",
-                    value = utils.tableToString(role:getPermissions():toArray()),
-                    inline = false
-                }
-            },
                 color = embedColor,
                 footer = {
                     text = "role created"

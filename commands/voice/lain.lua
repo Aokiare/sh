@@ -4,14 +4,14 @@ return {
     name = "lain",
     description = "stream lain chan radio",
     hidden = false,
-    command = function (message)
+    command = function(message)
         local author = message.guild:getMember(message.author.id)
         local vc
         if not author.voiceChannel and not client.user.voiceChannel then
             local reply = message:reply("join a voice channel first retard")
-            discordia.Clock():waitFor("",5000)
+            discordia.Clock():waitFor("", 5000)
             reply:delete()
-        return
+            return
         elseif client.user.voiceChannel then
             vc = client.user.voiceChannel
         else
@@ -37,10 +37,10 @@ return {
                     },
                     title = stream,
                     color = botColor,
-                    description = "requested by "..author.mentionString,
+                    description = "requested by " .. author.mentionString,
                 }
             })
-            vc.connection:playFFmpeg("http://lainon.life:8000/"..stream..".mp3")
+            vc.connection:playFFmpeg("http://lainon.life:8000/" .. stream .. ".mp3")
         end
     end
 }

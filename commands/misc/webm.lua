@@ -4,19 +4,19 @@ return {
     name = "webm",
     description = "get a random webm from a /wsg/",
     hidden = false,
-    command = function (message)
+    command = function(message)
         math.randomseed(os.time())
 
         local targetBoard = "wsg"
 
         local function getThread()
-            local _, data = http.request("GET", "https://a.4cdn.org/"..targetBoard.."/catalog.json")
+            local _, data = http.request("GET", "https://a.4cdn.org/" .. targetBoard .. "/catalog.json")
             local parsedData = json.decode(data)
             return tonumber(parsedData[math.random(1, 10)]["threads"][math.random(1, 15)]["no"])
         end
 
         local function getReplyWebm(threadNumber)
-            local _, data = http.request("GET", "https://a.4cdn.org/"..targetBoard.."/thread/"..threadNumber..".json")
+            local _, data = http.request("GET", "https://a.4cdn.org/" .. targetBoard .. "/thread/" .. threadNumber .. ".json")
             local parsedData = json.decode(data)
             local postNumber = math.random(1, #parsedData["posts"])
             return {
@@ -36,19 +36,19 @@ return {
             webmData = getReplyWebm(threadNumber)
         end
 
-        message:reply("https://i.4cdn.org/"..targetBoard.."/"..webmData[1]..webmData[2])
+        message:reply("https://i.4cdn.org/" .. targetBoard .. "/" .. webmData[1] .. webmData[2])
         message:reply({
             embed = {
                 color = botColor,
-                title = "No."..webmData[3],
-                description = webmData[5]..webmData[2],
+                title = "No." .. webmData[3],
+                description = webmData[5] .. webmData[2],
                 author = {
-                    name = "/"..targetBoard.."/",
+                    name = "/" .. targetBoard .. "/",
                     icon_url = "https://i.imgur.com/XcCKhYj.png",
-                    url = "https://boards.4channel.org/"..targetBoard.."/thread/"..threadNumber.."#p"..webmData[3]
+                    url = "https://boards.4channel.org/" .. targetBoard .. "/thread/" .. threadNumber .. "#p" .. webmData[3]
                 },
                 footer = {
-                    text = webmData[1].." | "..os.date("%d %b %Y • %I:%M:%S %p" ,webmData[4])
+                    text = webmData[1] .. " | " .. os.date("%d %b %Y • %I:%M:%S %p", webmData[4])
                 },
             }
         })

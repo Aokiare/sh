@@ -4,7 +4,7 @@ _G.discordia = require("discordia")
 _G.client = discordia.Client {
     dateTime = '%d %b %Y • %I:%M:%S %p',
 }
-_G.fs= require("fs")
+_G.fs = require("fs")
 _G.http = require("coro-http")
 _G.json = require("json")
 _G.pp = require("pretty-print")
@@ -21,7 +21,7 @@ discordia.extensions()
 
 client:on("ready", function()
     client:setStatus("dnd")
-    print(os.date("%d %b %Y • %I:%M:%S %p", os.time()).." | \027[94m[BOT]\027[0m     | "..client.user.username.." is online!")
+    print(os.date("%d %b %Y • %I:%M:%S %p", os.time()) .. " | \027[94m[BOT]\027[0m     | " .. client.user.username .. " is online!")
     _G.bot, _G.owner = client:getUser(client.user.id), client:getUser(client.owner.id)
     collectgarbage("collect")
 end)
@@ -30,7 +30,7 @@ client:on("messageCreate", function(message)
     if message.author.bot or message.author == client.user then return end
 
     if utils.hasPrefix(message.content, prefix) then
-        local command = string.sub(message.content,#prefix+1,message.content:find("%s")):lower():gsub("%s+","")
+        local command = string.sub(message.content, #prefix + 1, message.content:find("%s")):lower():gsub("%s+", "")
         _, _G.args = message.content:match("^(%S+)%s+(.+)$")
 
         for k, v in pairs(aliases) do
@@ -44,11 +44,11 @@ client:on("messageCreate", function(message)
         if commands[command] then
             commands[command].command(message)
             local currentTime, location = os.time()
-            if message.guild then location= "#"..message.channel.name..", "..message.guild.name.." ("..message.guild.id..")" else location = message.author.name.."'s dms" end
-            print(os.date("%d %b %Y • %I:%M:%S %p" ,currentTime).." | \27[33m[CMD]\27[0m     | "..command:upper().." <- "..message.author.tag.." ("..message.author.id..") "..location)
+            if message.guild then location = "#" .. message.channel.name .. ", " .. message.guild.name .. " (" .. message.guild.id .. ")" else location = message.author.name .. "'s dms" end
+            print(os.date("%d %b %Y • %I:%M:%S %p", currentTime) .. " | \27[33m[CMD]\27[0m     | " .. command:upper() .. " <- " .. message.author.tag .. " (" .. message.author.id .. ") " .. location)
         end
     end
     collectgarbage("collect")
 end)
 
-client:run("Bot "..botToken)
+client:run("Bot " .. botToken)

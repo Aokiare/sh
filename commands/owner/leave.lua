@@ -4,7 +4,7 @@ return {
     name = "leave",
     description = "leaves the guild",
     hidden = true,
-    command = function (message)
+    command = function(message)
         if message.author ~= owner then message:addReaction("🤡") return end
         message:reply("u sure?")
         local res = client:waitFor("messageCreate", 20000, function(msg)

@@ -1,10 +1,10 @@
 -- Licensed under the Open Software License version 3.0
 
 return {
-    name = 	"avatar",
-	description = "return the avatar of a user",
+    name = "avatar",
+    description = "return the avatar of a user",
     hidden = false,
-	command = function (message)
+    command = function(message)
         local author = message.guild:getMember(message.author.id)
         local member, color = author, botColor
         if message.mentionedUsers.first then

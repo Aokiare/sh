@@ -4,19 +4,19 @@ return {
     name = "domain",
     description = "query njal.la for domain status",
     hidden = false,
-    command = function (message)
-        local token = "Njalla "..njallaToken
-        if not token then return message:reply({embed {description = failEmote.." no njalla token provided in config", color = failColor}}) end
+    command = function(message)
+        local token = "Njalla " .. njallaToken
+        if not token then return message:reply({ embed { description = failEmote .. " no njalla token provided in config", color = failColor } }) end
         local domainQuery = string.trim(args)
 
         local headers = {
-            {"Content-Type", "application/json"},
-            {"Authorization", token}
+            { "Content-Type", "application/json" },
+            { "Authorization", token }
         }
 
         local data = {
             method = "find-domains",
-            params = {query = domainQuery}
+            params = { query = domainQuery }
         }
 
         local response, result = http.request("POST", "https://njal.la/api/1/", headers, json.encode(data))
@@ -25,7 +25,7 @@ return {
             return message:reply({
                 embed = {
                     color = failColor,
-                    description = failEmote.." http request failed with code **"..response.code.."**"
+                    description = failEmote .. " http request failed with code **" .. response.code .. "**"
                 }
             })
         end
@@ -36,7 +36,7 @@ return {
             return message:reply({
                 embed = {
                     color = failColor,
-                    description = failEmote.." that is not a domain"
+                    description = failEmote .. " that is not a domain"
                 }
             })
         end
@@ -49,14 +49,14 @@ return {
             message:reply({
                 embed = {
                     color = failColor,
-                    description = failEmote.." domain **"..domainName.."** is already taken"
+                    description = failEmote .. " domain `" .. domainName .. "` is already taken"
                 }
             })
         elseif domainStatus == "available" then
             message:reply({
                 embed = {
                     color = successColor,
-                    description = successEmote.." domain **"..domainName.."** is available for **$"..domainPrice.."**!"
+                    description = successEmote .. " domain `" .. domainName .. "` is available for **$" .. domainPrice .. "**!"
                 }
             })
         end

@@ -4,7 +4,7 @@ return {
     name = "time",
     description = "returns time in the right timezone",
     hidden = false,
-    command = function (message)
+    command = function(message)
         local author = message.guild:getMember(client.owner.id)
         local time = os.date("%I:%M:%S %p", os.time())
         local date = os.date("%d %B %Y", os.time())
